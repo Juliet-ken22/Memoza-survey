@@ -8,16 +8,9 @@
 <meta name="theme-color" content="#0B1512">
 <style>
   :root {
-    --bg0: #07100D;
-    --bg1: #0F1A16;
-    --bg2: #1A2721;
-    --line: #24342D;
-    --green: #22C55E;
-    --green-soft: rgba(34, 197, 94, .12);
-    --gold: #F5B942;
-    --text: #E9F1ED;
-    --muted: #93A79D;
-    --danger: #F87171;
+    --bg0: #07100D; --bg1: #0F1A16; --bg2: #1A2721; --line: #24342D;
+    --green: #22C55E; --green-soft: rgba(34, 197, 94, .12);
+    --gold: #F5B942; --text: #E9F1ED; --muted: #93A79D; --danger: #F87171;
   }
   * { box-sizing: border-box; }
   body {
@@ -38,8 +31,6 @@
   }
   h1 { font-size: 27px; line-height: 1.2; margin: 14px 0 8px; letter-spacing: -.4px; }
   .sub { color: var(--muted); font-size: 14.5px; margin: 0 0 10px; }
-
-  /* Explainer blocks */
   .intro { background: var(--bg1); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin: 18px 0 0; }
   .intro h2 { font-size: 16px; margin: 0 0 8px; color: var(--gold); letter-spacing: .02em; }
   .intro h3 { font-size: 12.5px; margin: 16px 0 6px; color: var(--green); text-transform: uppercase; letter-spacing: .07em; }
@@ -51,15 +42,12 @@
   summary { cursor: pointer; color: var(--green); font-weight: 800; font-size: 13.5px; list-style: none; }
   summary::-webkit-details-marker { display: none; }
   summary::before { content: "+ "; }
-  details[open] summary::before { content: "3  "; }
+  details[open] summary::before { content: "\2212  "; }
   .story { border-left: 3px solid var(--green); padding-left: 14px; margin-top: 12px; }
   .story p { margin: 0 0 10px; font-size: 14px; }
   .story p:last-child { margin-bottom: 0; }
   .honest { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 12.5px; }
-
-  /* Grey microcopy that explains a feature right where it is rated */
   .tip { display: block; color: var(--muted); font-weight: 500; font-size: 12.5px; margin: -6px 0 10px; }
-
   .progress {
     position: sticky; top: 0; z-index: 5;
     background: rgba(7,16,13,.94); backdrop-filter: blur(6px);
@@ -69,61 +57,33 @@
   }
   .bar { height: 5px; background: var(--bg2); border-radius: 99px; overflow: hidden; margin-top: 7px; }
   .bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--green), var(--gold)); transition: width .3s ease; }
-
-  fieldset {
-    border: 1px solid var(--line); background: var(--bg1);
-    border-radius: 16px; padding: 18px 18px 8px; margin: 18px 0 0;
-  }
-  legend {
-    font-size: 11.5px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--gold); padding: 0 8px; margin-left: -4px;
-  }
+  fieldset { border: 1px solid var(--line); background: var(--bg1); border-radius: 16px; padding: 18px 18px 8px; margin: 18px 0 0; }
+  legend { font-size: 11.5px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); padding: 0 8px; margin-left: -4px; }
   .q { padding: 15px 0 11px; border-bottom: 1px dashed var(--line); }
   fieldset .q:last-of-type { border-bottom: 0; }
   .q > label, .qt { display: block; font-weight: 700; margin-bottom: 9px; }
   .hint { color: var(--muted); font-weight: 500; font-size: 12.5px; margin: -5px 0 9px; display: block; }
-  .opt {
-    display: flex; align-items: flex-start; gap: 10px;
-    background: var(--bg2); border: 1px solid transparent;
-    padding: 10px 12px; border-radius: 11px; cursor: pointer;
-    font-size: 14px; margin-bottom: 7px;
-  }
+  .opt { display: flex; align-items: flex-start; gap: 10px; background: var(--bg2); border: 1px solid transparent; padding: 10px 12px; border-radius: 11px; cursor: pointer; font-size: 14px; margin-bottom: 7px; }
   .opt:hover { border-color: rgba(34,197,94,.4); }
   .opt input { accent-color: var(--green); width: 17px; height: 17px; flex: none; margin-top: 2px; }
   .row { display: grid; gap: 7px; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); }
   .row .opt { margin-bottom: 0; }
-  textarea, input[type="text"], input[type="email"] {
-    width: 100%; background: var(--bg2); color: var(--text);
-    border: 1px solid var(--line); border-radius: 11px;
-    padding: 11px 12px; font: inherit; font-size: 14px;
-  }
+  textarea, input[type="text"], input[type="email"] { width: 100%; background: var(--bg2); color: var(--text); border: 1px solid var(--line); border-radius: 11px; padding: 11px 12px; font: inherit; font-size: 14px; }
   textarea { min-height: 84px; resize: vertical; }
   textarea:focus, input:focus { outline: 2px solid rgba(34,197,94,.45); border-color: transparent; }
-
-  /* 1-5 and 0-10 scales */
   .scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-  .scale label {
-    background: var(--bg2); border: 1px solid transparent; border-radius: 10px;
-    padding: 9px 0; text-align: center; cursor: pointer; font-weight: 700; font-size: 14px;
-  }
+  .scale label { background: var(--bg2); border: 1px solid transparent; border-radius: 10px; padding: 9px 0; text-align: center; cursor: pointer; font-weight: 700; font-size: 14px; }
   .scale label:has(input:checked) { background: var(--green); color: #06231A; }
+  .scale input { position: absolute; opacity: 0; pointer-events: none; }
   .nps { grid-template-columns: repeat(11, 1fr); }
   .nps label { font-size: 12.5px; padding: 8px 0; }
   .nps label:has(input:checked) { background: var(--gold); color: #2A1A00; }
   .ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 11.5px; margin-top: 6px; }
-
-  /* Rate-each-feature grid */
   .rate { padding: 11px 0; border-bottom: 1px dashed var(--line); }
   .rate:last-child { border-bottom: 0; }
   .rate .qt { font-size: 14px; margin-bottom: 7px; }
   .rate .qt small { display: block; color: var(--muted); font-weight: 500; font-size: 12px; margin-top: 2px; }
-
-  .send {
-    margin-top: 28px; width: 100%;
-    background: var(--green); color: #06231A; border: 0;
-    font-size: 16px; font-weight: 900; letter-spacing: .02em;
-    padding: 16px; border-radius: 13px; cursor: pointer;
-  }
+  .send { margin-top: 28px; width: 100%; background: var(--green); color: #06231A; border: 0; font-size: 16px; font-weight: 900; letter-spacing: .02em; padding: 16px; border-radius: 13px; cursor: pointer; }
   .send[disabled] { opacity: .6; cursor: wait; }
   .err { color: var(--danger); font-size: 13.5px; margin-top: 10px; display: none; font-weight: 600; }
   .note { color: var(--muted); font-size: 12.5px; margin-top: 14px; }
@@ -167,11 +127,6 @@
   </div>
 
   <form id="form" autocomplete="off">
-    <!-- Collector: FormSubmit. Set COLLECTOR_EMAIL at the bottom of this file. -->
-    <input type="hidden" name="_subject" value="New LinkUp AI survey response">
-    <input type="hidden" name="_template" value="table">
-    <input type="text" name="_honey" style="display:none">
-
     <fieldset>
       <legend>About you</legend>
 
@@ -943,6 +898,9 @@
       </div>
     </fieldset>
 
+    <!-- Honeypot: real people never see or fill this. Bots do. -->
+    <input type="text" name="_honey" id="honey" style="display:none" tabindex="-1" autocomplete="off">
+
     <button class="send" type="submit" id="send">Send my answers</button>
     <p class="err" id="err"></p>
     <p class="note">About three minutes. Nobody gets the whole list: the streaming block is short and the attendee and organiser blocks swap depending on your first answer. Anonymous unless you leave a contact.</p>
@@ -956,9 +914,9 @@
 </div>
 
 <script>
-  // Where responses go. FormSubmit needs no account and no database: every submission
-  // arrives as a formatted email. The very first send asks you to confirm the address.
-  var COLLECTOR_EMAIL = "julietken972@gmail.com";
+  // FormSubmit random ID (from your activation email). It replaces your email address
+  // in the URL, so your address is never exposed in the page source.
+  var FORMSUBMIT_ID = "1e7317fb9973c850975665ce5574ff07";
 
   var form = document.getElementById("form");
   var secAttendee = document.getElementById("sec-attendee");
@@ -968,8 +926,7 @@
   var send = document.getElementById("send");
   var err = document.getElementById("err");
 
-  // A hidden fieldset still validates its required fields, so the browser would block
-  // submit on controls nobody can see. Disable the skipped block as well as hiding it.
+  // Hidden blocks are also disabled so their required fields cannot block submit.
   function setSection(fieldset, show) {
     fieldset.hidden = !show;
     var controls = fieldset.querySelectorAll("input, textarea");
@@ -1030,9 +987,10 @@
       data[el.name] = String(el.value).trim();
     }
     Object.keys(lists).forEach(function (k) { data[k] = lists[k].join("; "); });
-    // FormSubmit runs reCAPTCHA by default and an AJAX post cannot pass it.
+    // An AJAX post cannot pass FormSubmit's reCAPTCHA, so turn it off for this endpoint.
     data._captcha = "false";
     data._template = "table";
+    data._honey = document.getElementById("honey").value;
     data._subject = "LinkUp AI survey — " + (data.role || "response") +
                     (data.city ? " (" + data.city + ")" : "");
     return data;
@@ -1043,7 +1001,7 @@
     err.style.display = "block";
   }
 
-  // Keep "pick up to three" honest: cap the group instead of hoping people count.
+  // Keep "pick up to three" honest.
   function capCheckbox(el) {
     var group = form.querySelectorAll("input[name='" + el.name + "']");
     var checked = [];
@@ -1053,8 +1011,6 @@
     show("Pick " + el.dataset.groupMax + " at most — the honest three tell us more than a list of everything.");
   }
 
-  // Both listeners re-branch: a real tap fires input then change, but anything that fires
-  // only one of them must still swap the attendee/organiser blocks.
   form.addEventListener("change", function (event) {
     var el = event.target;
     if (el.type === "checkbox" && el.dataset.groupMax) capCheckbox(el);
@@ -1067,21 +1023,30 @@
     event.preventDefault();
     err.style.display = "none";
 
-    if (COLLECTOR_EMAIL.indexOf("@") < 1 || COLLECTOR_EMAIL.indexOf("example.com") > -1) {
-      show("Collector address is not set yet. Open survey/index.html and put your email in COLLECTOR_EMAIL.");
+    if (!FORMSUBMIT_ID) {
+      show("Collector ID is not set yet. Open index.html and set FORMSUBMIT_ID.");
+      return;
+    }
+
+    if (location.protocol === "file:") {
+      show("Open the live link (https://juliet-ken22.github.io/memoza-survey/) to send. Sending does not work from a file on your computer.");
       return;
     }
 
     send.disabled = true;
     send.textContent = "Sending...";
 
-    fetch("https://formsubmit.co/ajax/" + COLLECTOR_EMAIL, {
+    fetch("https://formsubmit.co/ajax/" + FORMSUBMIT_ID, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(collect())
     }).then(function (r) {
-      if (!r.ok) throw new Error("server said " + r.status);
-      return r.json();
+      return r.json().catch(function () { return {}; }).then(function (body) {
+        if (!r.ok || body.success === "false" || body.success === false) {
+          throw new Error(body.message || ("server said " + r.status));
+        }
+        return body;
+      });
     }).then(function () {
       form.style.display = "none";
       document.querySelector(".progress").style.display = "none";

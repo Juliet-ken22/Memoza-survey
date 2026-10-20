@@ -1,121 +1,44 @@
-# LinkUp AI feedback survey — setup and sharing
+# LinkUp AI feedback survey: setup (updated)
 
-A standalone survey for attendees, organisers, friends — and, since the streaming reframe, Ugandans
-watching from abroad who would never install a stadium app. It lives **outside** the `linkup-ai/`
-app folder on purpose: no backend changes, no database, no models, no extra surface for judges to
-confuse with `/console/`. One HTML file plus a free email collector, so you can share it today
-whether or not the app is hosted.
+This replaces sections 1 and 2 of the old SETUP.md. Everything else in the old file (how the survey is built, how to read results, what each answer decides, the Google Forms list) is unchanged.
 
-```
-survey/
-  index.html   the whole survey — streaming-first hook, branching questions, inline feature notes, submit logic
-  SETUP.md     this file
-```
+## 1. Collector
 
----
-
-## 1. Set where responses land (already done — check it)
-
-`survey/index.html` currently points at **julietken972@gmail.com**, the address in your git config:
+Responses go through FormSubmit using the random ID from your activation email, so your Gmail address is not in the page source:
 
 ```js
-var COLLECTOR_EMAIL = "julietken972@gmail.com";
+var FORMSUBMIT_ID = "1e7317fb9973c850975665ce5574ff07";
 ```
 
-Change it if the hackathon contact email is different. Save. That is the only edit the file needs.
+The request goes to `https://formsubmit.co/ajax/1e7317fb9973c850975665ce5574ff07`.
 
-**The first submission needs a one-time confirmation.** The very first person to submit triggers an
-email from FormSubmit asking *"Is this your email address?"* — click it once, or early responses
-look like they vanished. Do that test submission yourself before the link goes out.
+### Activate once
+1. Open the live survey (link below) and submit one test response.
+2. FormSubmit emails you an activation message. Click **Activate Form**.
+3. If the activation link gives a 404, it is used up or expired. Submit the live survey again to get a fresh email, and click it right away.
+4. Submit again. The response should now arrive in your inbox.
 
-Why FormSubmit: no account, no API key, no plan, and each response arrives as a formatted email.
-Nothing sits on a third-party dashboard you do not control.
+Sending does not work when you open `index.html` from your computer (`file://`). Always test on the live https link.
 
-### Where you read the answers
-**Your Gmail inbox is the dashboard.** Every submit sends one email titled
-`LinkUp AI survey — Attendee (Kampala)` with the answers laid out as a table. Search
-`from:FormSubmit` (or subject `LinkUp AI survey`) and everything you have collected is there —
-nothing expires, nothing is behind a login you do not control.
+## 2. Publish on GitHub Pages
 
-To make it a spreadsheet, either forward rows as you go, or run the same questions through
-Google Forms in parallel (paste list at the bottom of this file) — Forms gives you a live
-"Responses" tab and charts for free. Once the main app is deployed, the better long-term move is
-to store responses in your own database and show them as a tab in `/console/`, so the survey and
-the product live in one place.
+Repo: `Memoza-survey`
 
-## 2. Get a shareable link
+1. Put `index.html` in the root of the repo (not in a subfolder).
+2. Settings > Pages > Source: Deploy from a branch > `main` / `(root)` > Save.
+3. Wait 1-3 minutes.
+4. Your link is:
 
-All three give you a plain `https://` link to paste in WhatsApp.
+   **https://juliet-ken22.github.io/memoza-survey/**
 
-**A. Netlify drag-and-drop (fastest, ~1 minute)**
-1. Go to `app.netlify.com/drop`.
-2. Drag the `survey` folder onto the page.
-3. You get `https://<random-name>.netlify.app` — rename it under *Site configuration* to
-   something like `linkup-ai-feedback`.
+   The bare address `https://juliet-ken22.github.io/` will 404, because that address belongs to a repo named `juliet-ken22.github.io`.
 
-**B. GitHub Pages (best if you want the file versioned)**
-1. New repository, e.g. `linkup-ai-feedback` (public).
-2. Upload `index.html` to the root of that repo.
-3. *Settings → Pages → Source: Deploy from a branch → `main` / `root`* → Save.
-4. Link is `https://<your-username>.github.io/linkup-ai-feedback/` (a couple of minutes the first time).
-
-**C. Your Render app, once the main project is live**
-Drop it in `backend/templates/` as `survey.html`, add a Django view and URL, and the survey lives
-at `https://<your-app>.onrender.com/feedback/`. Only worth doing after deployment — the whole point
-of this build is that it does not have to wait for that.
-
-### Check these six before sending it out
-- Open the link on your **phone**, not only the laptop — almost everyone will tap it in WhatsApp.
-- Submit a real test response; confirm the email arrives with all your answers, formatted.
-- Pick "Attendee", then "Organizer", then "Both" and confirm the blocks swap.
-- Pick "Neither", answer, and check the email has **no** attendee or organiser rows but does have the
-  "Watching from anywhere" rows — that block is what the diaspora answers.
+## 3. Check before sharing
+- Open the link on your phone.
+- Submit a test response and confirm the email arrives with a table of answers.
+- Try Attendee, Organizer, Both and Neither, and confirm the blocks swap.
 - Tick four boxes in "Which would you really use?" and confirm the fourth is refused.
 - Confirm the thank-you screen replaces the form.
-
-## 3. How the survey is built
-
-- **Streaming is the hero, in that order.** The page opens with one line — a **live-streaming and
-  crowd-safety platform** you can watch from anywhere in the world, powered by the fans inside the
-  stadium — then three lines: *watch from anywhere*, *the crowd builds the broadcast*, *the offline
-  safety net*. About 90 words before question one. `hook_line` then asks which of those lines made the
-  person keep reading, so the headline for the landing page and the pitch deck comes from data, not from us.
-- **One honest line, on purpose.** Directly under the hook, `.honest` states what runs today (attendee app,
-  `*384#`, organiser console, projector wall, clip upload) and that the global fan-powered stream is where
-  it is heading. Judges and a sceptical organiser can check it: the code pushes a staff webcam frame every
-  2 seconds and plays uploaded clips; there is no continuous stream pipeline yet. The promise is framed as
-  "would you watch and pay for it", which is the question being asked, not a claim of delivery.
-- **Grace's afternoon is folded away.** The long story — PIN circle, uncle on `*384#`, the collapse and AI
-  triage, the poll and airtime, her brother in Nairobi watching her stand — sits behind **"See a real day at
-  the match"**. Anyone who wants the full picture gets it; nobody is handed four paragraphs first.
-- **Each feature is explained where it is judged.** The rating rows carry one grey line of microcopy
-  ("Alerts stewards and medical staff instantly about crushes, fires or medical issues"), and the USSD,
-  AI-triage, console, live-camera, fan-mix and broadcast-rights questions each get a similar one-liner.
-- **Comprehension is measured, not assumed.** `clarity` plus `unclear_parts` (which now include "how a fan in
-  the crowd becomes part of the broadcast" and "which parts exist today") tell you whether the new wording
-  works — a copywriting fix, and a cheap one.
-- **Branching.** Question 1 (`role`) shows the attendee block, the organiser block, both, or neither.
-  A hidden block is *disabled*, so its required fields cannot block submission and half-answered
-  blocks cannot enter your data — switch from Attendee to Organiser mid-form and the attendee
-  answers disappear from the payload. Nobody sees the whole list: the question groups a person
-  actually faces is **32** for a friend or judge, **43** for an organiser, **50** for an attendee,
-  **61** if they do both. Of those, **21** are required for a friend, **26** for an attendee,
-  **27** for an organiser, **32** for both; every text box is optional.
-- **"Pick up to three" is enforced** on `would_use`, because "everything is useful" tells you nothing.
-- **Every core feature gets its own 1-5 score** (`use_stream`, `use_fanmix`, `use_sos`, `use_group`,
-  `use_missing`, `use_ussd`, `use_polls`, `use_shouts`, `use_clips`, `use_meeting`) so you get a ranked
-  feature list instead of one vague "do you like it". The two streaming scores sit in the block everyone
-  sees, so a diaspora viewer who has never set foot in Namboole still ranks them.
-- **The pivot's three real risks are asked directly**: would remote viewers pay (`stream_pay`,
-  `ppv_interest`), does a raw fan-built feed beat the official TV camera (`fan_mix_trust`, `stream_blocker`,
-  `stream_latency`), and whose broadcast rights are you standing on (`stream_rights`).
-- **Money and adoption are asked directly**: price per event, who should pay, willingness to pay for
-  the memory video and for the stream, sponsor slots on the wall, and what would make an organiser say no.
-- **Text boxes are always optional**, so nobody abandons the form over a blank they cannot fill.
-- One trade-off to know: nothing is saved until someone presses send. A long form means some people
-  start and never finish, and those partials are lost. That is why the required questions are
-  concentrated early and the free text is last. The survey grew by 11 groups with the streaming block —
-  if responses arrive half-finished, the fix is to cut the attendee block, not the streaming block.
 
 ## 4. Reading the results
 
