@@ -75,25 +75,61 @@ of this build is that it does not have to wait for that.
 
 ## 3. How the survey is built
 
-- **Streaming is the hero, in that order.** The page opens with one line — a **live-streaming and
-  crowd-safety platform** you can watch from anywhere in the world, powered by the fans inside the
-  stadium — then three lines: *watch from anywhere*, *the crowd builds the broadcast*, *the offline
-  safety net*. About 90 words before question one. `hook_line` then asks which of those lines made the
-  person keep reading, so the headline for the landing page and the pitch deck comes from data, not from us.
-- **One honest line, on purpose.** Directly under the hook, `.honest` states what runs today (attendee app,
-  `*384#`, organiser console, projector wall, clip upload) and that the global fan-powered stream is where
-  it is heading. Judges and a sceptical organiser can check it: the code pushes a staff webcam frame every
-  2 seconds and plays uploaded clips; there is no continuous stream pipeline yet. The promise is framed as
-  "would you watch and pay for it", which is the question being asked, not a claim of delivery.
-- **Grace's afternoon is folded away.** The long story — PIN circle, uncle on `*384#`, the collapse and AI
-  triage, the poll and airtime, her brother in Nairobi watching her stand — sits behind **"See a real day at
-  the match"**. Anyone who wants the full picture gets it; nobody is handed four paragraphs first.
+> **Read this before editing any wording: the `value="…"` attributes are your data keys.** In the
+> streaming pass of October 2026 every *display* string was rewritten into plain English, and not one
+> `value` was touched — `value="The crowd builds the broadcast"` now displays as **"The fans make
+> it"**, `value="What the stadium screen shows"` now displays as **"What the big screen at the
+> stadium would actually show"**. That keeps responses collected before the rewrite comparable with
+> responses after it. If you rename a `value`, the spreadsheet column changes meaning halfway through
+> your results. Only change a `value` deliberately, and note the date here.
+
+- **The fans are the product, safety is the guarantee — in that order.** The page opens with a
+  **fan-powered live stream** you can watch from anywhere in the world, then three lines: *watch from
+  anywhere*, *the fans make it*, *the safety part, for people who are there*. About 140 words before
+  question one. `hook_line` then asks which of those lines made the person keep reading, so the
+  headline for the landing page and the pitch deck comes from data, not from us.
+  **Why the order changed:** the first real reader's objection was that *"a typical Ugandan won't
+  install an event safety app — they came to enjoy, not to worry."* That is correct, and it is now
+  designed for. Nobody installs for safety; they install for the stream, the airtime and seeing
+  themselves on the big screen. Safety is what makes the organiser and the sponsor buy it, and it is
+  stated as a one-line promise you will probably never need ("Most days you will never touch this
+  part") rather than as a second product. Treat this as a finding, not a complaint — `install_intent`,
+  `open_trigger` and the "Fans will not install anything" option in `biggest_risk` measure it.
+- **No private vocabulary on the respondent's side.** Every internal word was replaced in the text a
+  person actually reads: *clip wall / crowd wall* → **the big screen at the stadium playing fan
+  videos**; *projector* → **the big screen at the stadium**; *the console* → **the organiser's page**
+  (defined in full at first use); *safety circle* → **a group list with a PIN**; *live angles* →
+  **views filmed by fans in different stands**; *stitched into one continuous feed* → **played one
+  after another as a single live stream**; *AI triage* → **the system reads the report and marks it**;
+  *the diaspora* → **fans watching from other countries**; *memory mix* → **the day back to you as one
+  edited video**; *sponsor slot on the wall* → **an advert from a sponsor on the big screen** (and
+  "memory" never appears as a noun on its own — it is always *the finished video of your day*). Jargon
+  survives only inside `value` keys. If a future question tempts you to write
+  "wall", "console" or "mix" in display text, a reader will not know what you mean — they answered
+  `unclear_parts` on exactly those words.
+- **One honest line, on purpose.** Directly under the hook, `.honest` states what runs today (the app,
+  `*384#`, the big screen playing fan videos, the organiser's page, and one link you can open from
+  anywhere to watch those videos) and says plainly that a full live stream of the whole match is not
+  built yet. Judges and a sceptical organiser can check it: the code pushes a staff webcam frame every
+  2 seconds, plays uploaded clips, and `/watch/<join code>/` serves that feed to the public; there is
+  no continuous pipeline for the match itself. The promise is framed as "would you watch and pay for
+  it", which is the question being asked, not a claim of delivery.
+- **Grace's afternoon is folded away.** The long story — her group with a PIN, uncle on `*384#`, the
+  collapse and how the system ranks it, the poll and airtime, her brother in Nairobi watching her
+  stand — sits behind **"See a real day at the match"**. Anyone who wants the full picture gets it;
+  nobody is handed four paragraphs first. Each term is explained inside the story the first time it
+  appears ("That group is just a small list of the people she came with").
 - **Each feature is explained where it is judged.** The rating rows carry one grey line of microcopy
   ("Alerts stewards and medical staff instantly about crushes, fires or medical issues"), and the USSD,
-  AI-triage, console, live-camera, fan-mix and broadcast-rights questions each get a similar one-liner.
-- **Comprehension is measured, not assumed.** `clarity` plus `unclear_parts` (which now include "how a fan in
-  the crowd becomes part of the broadcast" and "which parts exist today") tell you whether the new wording
-  works — a copywriting fix, and a cheap one.
+  priority-ranking, organiser-page, live-camera, fan-video and broadcast-rights questions each get a
+  similar one-liner. The organiser-page row now carries a four-sentence definition, because the first
+  reader could not tell who sits at it.
+- **Comprehension is measured, not assumed.** `clarity` plus `unclear_parts` tell you whether the new
+  wording works. The two options the first reader picked are still in the list, now phrased as *"What
+  the big screen at the stadium would actually show"* and *"Who uses the organiser's page, and what do
+  they do with it"* — so you can tell whether the rewrite fixed those two specifically or whether the
+  surfaces themselves are unclear. If they are still ticked often, it is a product-shape problem, not a
+  copy problem, and the answer is a screenshot on the landing page rather than more words.
 - **Branching.** Question 1 (`role`) shows the attendee block, the organiser block, both, or neither.
   A hidden block is *disabled*, so its required fields cannot block submission and half-answered
   blocks cannot enter your data — switch from Attendee to Organiser mid-form and the attendee
@@ -129,7 +165,7 @@ names arrive as readable rows:
 | Watching from anywhere *(everyone)* | `watch_from` `stream_interest` `stream_what` `stream_device` `stream_pay` `use_stream` `use_fanmix` `fan_mix_trust` `stream_blocker` `stream_latency` |
 | Attendee | `incident` `would_use` `use_sos` `use_group` `use_missing` `use_ussd` `use_polls` `use_shouts` `use_clips` `use_meeting` `ussd_appetite` `ussd_in_panic` `trust` `worries` `language` `airtime_pull` `wall_eagerness` `pay_for_memory` `dealbreaker` `missing_feature` `access_needs` |
 | Organiser | `reports_today` `response_time` `console_need` `triage_trust` `staff_burden` `integration` `after_event_report` `willing_to_pay` `payer` `stream_rights` `ppv_interest` `organizer_blockers` `biggest_gap` |
-| Stream, screen, survival | `wall_value` `live_cam_use` `positioning` `sponsor_model` |
+| The stream and the big screen | `wall_value` `live_cam_use` `positioning` `sponsor_model` |
 | Next moves | `first_priority` `cut_one` `biggest_risk` `nps` |
 | Last words | `improve` `anything` `follow_up` `contact` |
 
@@ -192,81 +228,87 @@ Google Forms in parallel — the paste-ready list at the bottom matches this for
 
 Same questions, same order. Use section breaks between blocks; the attendee/organiser split becomes
 two sections people skip themselves, or a Google Forms branch on question 1. The "Watching from
-anywhere" block stays with everyone — diaspora viewers answer it and nothing else, so do not hide it
-behind the branch.
+anywhere" block stays with everyone — fans watching from other countries answer it and nothing else,
+so do not hide it behind the branch.
+
+Every question below lists only the **option text a respondent reads**. The plain-English
+explainer lines (`What the organiser's page is`, the `<small>` text under each 1-5 rating, the
+`Example:` hints) go in the Google Forms **Description** field of the same question — they are what
+stopped people from giving up on this survey last time, so do not drop them. The words in
+`value="…"` inside `index.html` are your analysis keys and never change; the option text does.
 
 **About you**
-1. Which best describes you? *(Single choice, required)* I attend big events / I organise, steward or run safety at events / Both / Neither — a friend, judge or just curious
+1. Which best describes you? *(Single choice, required)* I attend big events — matches, concerts, festivals / I organise, steward or run safety at events / Both — I go to events and I work them / Neither — a friend, judge or just curious
 2. City you usually attend events in *(Short answer, optional)*
 3. What do you carry to an event? *(Single choice, required)* Android smartphone / iPhone / Basic phone only / One of each
 4. How often are you in a crowd of 1,000+ people? *(Single choice, required)* Never / 1-2 a year / Monthly / Weekly or more
 5. How do you usually attend? *(Single choice)* Alone / With 2-5 friends / With family / With an organised group
-6. What is your data bundle situation at a big event? *(Single choice, required)* Always have data that works / Runs out during the event / I turn data off to save money / Too congested to use anyway / No data at all
-7. How do you behave about event apps? *(Single choice, required)* I install whatever the event asks / Only if it clearly pays or protects me / Never install, give me a code to dial / I download it and never open it
-8. Where do you normally get event information from? *(Checkboxes)* WhatsApp / Twitter-X / Poster or ticket / A friend / Radio-TV / Organiser announcement
+6. What is your data bundle situation at a big event? *(Single choice, required)* I always have data that works / It runs out during the event / I turn data off to save money / The network is too jammed to use anyway / I have no data at all
+7. How do you behave about event apps? *(Single choice, required)* I install whatever the event asks / Only if it clearly pays me or protects me / I never install — give me a code to dial / I download it and never open it
+8. Where do you normally get event information from? *(Checkboxes)* WhatsApp / Twitter/X / Poster or ticket / A friend / Radio/TV / Organiser announcement
 
 **Did that description land?**
 9. Had you seen LinkUp AI before this page? *(Single choice, required)* Used it / Seen a demo / Heard of it / First time
-10. After reading the description, how clear is it what this does? *(Linear scale 1-5, required)*
-11. Which parts still do not make sense? *(Checkboxes)* Why this needs to exist / How an SOS reaches a steward / How *384# works without internet / What the stadium screen shows / Who sits at the console / How airtime gets paid / How AI decides priority / How a fan in the crowd becomes part of the broadcast / Which parts exist today and which are still an idea / Nothing, it was clear
-12. Which line made you want to keep reading? *(Single choice, required)* "Watch from anywhere" / "The crowd builds the broadcast" / "The offline safety net" / The safety side — SOS, PIN circles, missing children / None of them landed
+10. After reading the description above, how clear is it what this does? *(Linear scale 1-5, required)* 1 = Still confusing, 5 = Crystal clear
+11. Which parts still do not make sense? *(Checkboxes)* Why this needs to exist at all / How a tap on SOS actually reaches a steward / How *384# can work when there is no internet / What the big screen at the stadium would actually show / Who uses the organiser's page, and what do they do with it / How the airtime actually reaches my phone / How the system decides a report is high priority / How a fan's phone video ends up in the stream / Which parts exist today and which are still an idea / Nothing — it was clear
+12. Which line made you want to keep reading? *(Single choice, required)* "Watch from anywhere" — the stream you open on any screen / "The fans make it" — the people inside are the camera crew / "The safety part" — works on *384# with no internet / The safety side — SOS, group PINs, lost children / None of them landed
 13. Would you have it on your phone at the next big event? *(Single choice, required)* Definitely / Probably / Only if required / No / Not sure
-14. When would you actually open it? *(Single choice)* Before I leave home / At the gate on check-in / Only when something goes wrong / For polls and content
-15. Does the name make sense? What would you call it? *(Paragraph, optional)*
+14. When would you actually open it? *(Single choice)* Before I leave home / At the gate when I check in / Only when something goes wrong / For polls and content during the event
+15. Does the name make sense to you? What would you call it? *(Paragraph, optional)*
 
 **Watching from anywhere** *(everyone — this is the streaming block)*
-16. Where would you be when a big event is on? *(Single choice, required)* In the stadium / At home in Uganda / Abroad, I follow Uganda from a distance / I do not really follow live events
-17. How useful would a live stream of these events be to you? *(Linear scale 1-5, required)* Useless to exactly what I want
-18. What would you actually watch? *(Checkboxes)* The whole match or festival live / Goals, highlights and key moments only / The crowd and stand atmosphere from fan angles / Backstage and set content / Pre and post-event talk / Nothing, I only watch in person
+16. Where would you be when a big event is on? *(Single choice, required)* In the stadium, in the crowd / At home in Uganda / Abroad — I follow Uganda from a distance / I do not really follow live events
+17. How useful would a live stream of these events be to you? *(Linear scale 1-5, required)* 1 = Useless, 5 = Exactly what I want
+18. What would you actually watch? *(Checkboxes)* The whole match or festival, live / Goals, highlights and key moments only / The crowd and the atmosphere in the stands, filmed by fans / Backstage and set content / Pre and post-event talk / Nothing — I only watch in person
 19. On what screen? *(Checkboxes)* Phone / Television / Laptop / Tablet / Projected with friends
 20. Would you pay to watch? *(Single choice, required)* Only if it is free / UGX 2,000-5,000 for one event / UGX 10,000 or more / 1-3 USD per match, from abroad / A monthly subscription
-21. Global live streaming room — how much do you want it? *(Linear scale 1-5)* Watch big Ugandan events from anywhere, switching between the main feed and live angles from the stands
-22. The fan-powered broadcast mix — how much do you want it? *(Linear scale 1-5)* Short clips from fans in every stand, stitched into one continuous live reel for remote viewers
-23. A broadcast built from fan clips rather than a polished TV camera — honest reaction? *(Single choice, required)* That is the point, raw is better / Fine, if it stays watchable / I would rather have the official feed / Not interested either way
+21. A live stream room for big events — how much do you want it? *(Linear scale 1-5)* Open one link from any country and watch — the main view, plus views filmed by fans in different stands
+22. A stream built from fan clips — how much do you want it? *(Linear scale 1-5)* Short videos from fans in every stand, played one after another as a single live stream for people watching from far away
+23. A stream made from fans' phone videos instead of a proper TV camera — honest reaction? *(Single choice, required)* That is the point, I want the real feel / Fine, as long as it stays easy to watch / I would rather have the TV camera / Not interested either way
 24. What would stop you from watching a stream like this? *(Single choice, required)* My data cost / It is not the full match / Poor video quality / No commentary in my language / I watch with people on TV / Nothing, I would watch
 25. Does it matter if the stream is about 30 seconds behind live? *(Single choice, required)* No, the atmosphere is enough / Yes, I want it live / Only matters for scores
 
-**Attendee experience** *(attendees and "Both")*
-26. At a big event, which of these has happened to you? *(Checkboxes)* Separated from my people / Lost track of a child / Medical emergency next to me / Crush or stampede scare / Phone or network failed / Fighting, theft or harassment / None
-27. Which would you really use? *(Checkboxes, limit 3)* One-tap SOS / Safety circle with a PIN / Missing-person report / Doing it all on *384# / Polls with airtime / Shout-outs on the wall / Nearest safe meeting point / Clip upload and memory mix / Watching the match live when I am not at the ground / My clip going into the live broadcast
-28-35. Rate each 1-5 *(Linear scale)* One-tap SOS / Safety circle / Missing-person reporting / *384# menu / Live polls with airtime / Shout-outs on the wall and the stream / Clip upload and memory mix / Meeting point finder
-36. Would you genuinely dial *384# for safety instead of an app? *(Single choice, required)* Yes definitely / Probably / Not sure / No
-37. In a real emergency, would you stop and dial a menu, or just shout? *(Single choice)* I would dial, it is faster / One tap in the app / I would shout and wave / Walk to the nearest security person
+**Your experience as an attendee** *(attendees and "Both")*
+26. At a big event, which of these has happened to you? *(Checkboxes)* Separated from my people and could not reconnect / Lost track of a child / A medical emergency right next to me / A crush or stampede scare / My phone or the network completely failed / Fighting, theft or harassment / None of these
+27. Which of these would you really use? *(Checkboxes, up to three)* One-tap SOS to organisers and on-duty security / A group list so I know the people I came with are safe / Reporting a lost child or lost friend by name and where they were last seen / Doing all of it on *384# with no data / Live polls that pay airtime / Putting my message or my video on the big screen at the stadium / Finding the nearest safe meeting point / Sending a video of my stand, and getting the day back as one edited video / Watching the match live on my phone when I am not at the ground / My clip going into the stream the whole country is watching
+28-35. Rate each one — how useful would it be to you? *(Eight linear scales, 1-5)* One-tap SOS / A group list with a PIN / Missing person reporting / The *384# menu / Live polls with airtime / Your message or video on the big screen / Sending a clip, and getting your day back / Safe meeting point finder — each keeps its own one-line explanation in the Description field
+36. Would you genuinely dial *384# for safety instead of an app? *(Single choice, required)* Yes, definitely / Probably / Not sure / No
+37. In a real emergency, would you stop and dial a menu, or just shout? *(Single choice)* I would dial — it is faster than finding a steward / One tap in the app, if I have it open / I would shout and wave my arms / Walk to the nearest security person
 38. Would you report an emergency through the app instead of to a person? *(Linear scale 1-5, required)*
-39. What would you worry about? *(Checkboxes)* Location tracking / Number stored and sold / The crowd knowing I raised an alert / Spam SMS afterwards / Battery / Data cost / Prank misuse / None
-40. Which language would you use it in? *(Single choice)* English / Luganda / Both / Swahili / Runyankole-Rukiga / Another
-41. Does airtime for voting bring you back, or is it noise? *(Single choice, required)* Big reason / Nice bonus / Does not interest me / Feels like a gimmick
-42. Would you put your own message or video on the stadium wall? *(Single choice)* Yes always / Only if friends would see it / No, too embarrassing / Never
-43. Would you pay for the finished video of your day? *(Single choice, required)* Yes UGX 2,000-5,000 / Yes around UGX 10,000 / Only if free / No interest
+39. What would you worry about? *(Checkboxes)* My location being tracked / My number being stored and sold / The crowd or screen knowing I raised an alert / Getting flooded with SMS after / Battery dying because the app runs / It eating my bundle / Someone abusing it as a prank / None of these worry me
+40. Which language would you use it in? *(Single choice)* English / Luganda / Both / Swahili / Runyankole/Rukiga / Another — say below
+41. Does airtime for voting bring you back, or is it noise? *(Single choice, required)* A big reason to use it / A nice bonus / Does not interest me / Feels like a gimmick
+42. Would you put your own message or video on the big screen at the stadium? *(Single choice)* Yes, always / Only if my friends would see it / No — too embarrassing / Never
+43. Would you pay for the finished video of your day — all the clips from the crowd edited into one? *(Single choice, required)* Yes, UGX 2,000-5,000 / Yes, around UGX 10,000 / Only if it is free / No interest
 44. What would stop you from using an event app like this? *(Paragraph, optional)*
 45. What is missing that you would want? *(Paragraph, optional)*
 46. Anything that would make it hard for you, or someone you look after, to use it? *(Paragraph, optional)*
 
-**Organiser experience** *(organisers and "Both")*
+**Your work as an organiser or steward** *(organisers and "Both")*
 47. How do incident reports reach you today? *(Single choice, required)* Radio / WhatsApp / Phone calls / Runners / Nothing formal
-48. How long does a report take to reach someone who can act? *(Single choice)* Under 2 min / 2-10 min / 10-30 min / Over 30 min / Never reliably
-49. Which console feature would save you the most? *(Checkboxes)* Prioritised alerts / Shared missing-person board / Staff camera to the wall / Quick event setup with join codes / Crowd clip wall / Live poll results / Event health score / Which safety circles are complete / Multi-angle broadcast console / Selling pay-per-view stream tickets
-50. Would you trust a model to set incident priority? *(Single choice, required)* Yes with human override / Only for small stuff / No, staff must decide / Only if every decision is logged
+48. How long does a report usually take to reach someone who can act? *(Single choice)* Under 2 min / 2-10 min / 10-30 min / Over 30 min / Never reliably
+49. Which part of the organiser's page would help you the most during an event? *(Checkboxes)* Reports sorted by how serious they are (medical / security / fire / crush) / One lost-person list the whole team can see and update / Putting a steward's phone camera on the big screen / Setting up an event quickly and getting its join code / Picking which fan videos play on the big screen / Live poll results and how the crowd is feeling / One safety number for the whole event, going up or down as reports come in / Which groups have checked in, and which are still missing people / Choosing which camera the stream shows, like a TV director / Selling tickets to the stream and seeing who bought
+50. Would you let the system decide how serious a report is? *(Single choice, required)* Yes, if a human can override it / Only for sorting the small stuff / No — staff must decide / Only if every decision is logged
 51. How much change could your team absorb before an event? *(Single choice, required)* A steward app is fine / Under 30 min training / Only if it replaces radio / None, we cannot add tools
 52. What would you want it connected to? *(Checkboxes)* CCTV / PA / Ticketing or gate scanning / Steward roster / Stadium radio / Ambulance-police channels / Nothing yet
-53. Which after-event report would you want? *(Checkboxes)* Incident timeline with response times / Missing-person reconciliation / Sentiment and poll data / Clip library / Zone and gate counts / Evidence for insurers or police
-54. Would an organiser pay for this per event? *(Single choice, required)* Only if free / Up to UGX 100k / UGX 100k-500k / More for a stadium / A sponsor should pay
-55. Who should actually pay? *(Single choice)* Organiser / Venue / Sponsor / Telco / Federation or government / Baked into the ticket
-56. Streaming changes who owns the footage. Whose is it today? *(Single choice, required)* A TV broadcaster owns them / We the organisers keep them / The venue or federation / Nobody has settled it / Not my area
-57. Would you sell tickets to watch the stream rather than the seats? *(Single choice, required)* Yes, money the stadium cannot hold / Yes, if the fans in the crowd get most of the value / Only if it does not hurt ticket sales / No, that is the broadcaster's business / I need to see what it earns first
+53. Which report would you want after the event? *(Checkboxes)* Incident timeline with response times / Missing person reconciliation / Crowd sentiment and poll data / The clip library / Zone and gate counts / Evidence for insurers or police
+54. Would an organiser pay for this per event? *(Single choice, required)* Only if free / Up to UGX 100k / UGX 100k-500k / More, for a stadium / A sponsor should pay
+55. Who should actually pay? *(Single choice)* The organiser / The venue / A sponsor / A telco / Federation or government / Baked into the ticket
+56. Streaming changes who owns the footage. Whose is it today? *(Single choice, required)* A TV broadcaster owns them / We keep them ourselves / The venue or federation / Nobody has settled it / Not my area
+57. Would you sell tickets to watch the stream rather than the seats? *(Single choice, required)* Yes — money the stadium cannot hold / Yes, if the fans in the crowd get most of the value / Only if it does not hurt ticket sales / No — that is the broadcaster's business / I need to see what it earns first
 58. What would make an organiser say no? *(Paragraph, optional)*
 59. What is the biggest gap in your operations today? *(Paragraph, optional)*
 
-**The stream, the screen, and how it survives** *(everyone)*
-60. Does a stadium screen showing crowd content make the event better? *(Single choice, required)* A lot / A little / No difference / Can be a danger
-61. What should the live camera show? *(Checkboxes)* Stand energy / Gates and crowd density / Pitch or stage / Fan interviews / Not needed
-62. Which is the honest truth about this product? *(Single choice, required)* Streaming is the product, safety is what makes it allowed to exist / Safety first, the stream funds it / Both equally / Make it safety only, drop the stream / They are two different products for two different buyers
-63. Would you accept sponsor slots on the wall to keep it free? *(Single choice, required)* Yes fine / Yes but keep it small / No, it cheapens it / Only if it pays for safety
+**The stream and the big screen** *(everyone)*
+60. Does showing fan videos and fan messages on the big screen make the event better? *(Single choice, required)* A lot better / A little better / No difference / Can be a danger — distraction
+61. What should the live camera show? *(Checkboxes)* The stand energy — fans, colours, singing / Gates and crowd density, for safety / The pitch or the stage / Fan interviews and reactions / I do not need a live camera
+62. Which is the honest truth about this product? *(Single choice, required)* Streaming is the product; safety is what makes it allowed to exist / Safety first; the stream and the fans pay for it / Both, equally / Make it safety only, drop the stream / They are two different products for two different buyers
+63. Would you allow adverts from a sponsor on the big screen, if paying for them kept this tool free? *(Single choice, required)* Yes, that is fine / Yes, but keep it small / No, it would make the event feel like an advert / Only if it pays for safety
 
 **What we should do next** *(everyone)*
-64. What should we build or fix first? *(Single choice, required)* The global live stream / Making the fan-clip mix reliable and watchable / Stream tickets, payment and revenue splits / Solid *384# on a dying network / Faster SOS with dispatch times / Missing-person workflow / Live camera and wall / Real airtime rewards / Smoother app / Working fully offline / A clear price and pitch for organisers / Luganda, Swahili, Runyankole / A separate steward view
-65. What should we cut or stop promoting? *(Single choice)* Fan polls / Clip wall / Shout-outs / Meeting point finder / Live camera / The fan-powered broadcast mix / Selling stream tickets / Nothing, keep it all
-66. What do you think kills this project? *(Checkboxes)* Organisers never adopt it / Network dies at the worst moment / Fans will not install / Stadium or government rules / Nobody pays / Half-built features failing in public / Nobody trusts an app in an emergency / One bad incident blamed on it / A TV rights deal blocks the fan stream / Streaming costs too much data for Ugandan fans
+64. What should we build or fix first? *(Single choice, required)* The live stream — watch from anywhere / Making the fan-video stream dependable and easy to watch / Stream tickets, payment and who gets the money / Making *384# rock solid when the network is dying / Faster SOS, with real response times / The lost-child process, and joining a found person back to their family / The live camera and the big screen at the stadium / Real airtime rewards for voting / A smoother, prettier app / Working when the network dies completely / A clear price and pitch for organisers / Luganda, Swahili and Runyankole support / A separate view for stewards on the ground
+65. What should we cut or stop promoting? *(Single choice)* Fan polls / Fan videos on the big screen / Shout-outs / Meeting point finder / The live camera / The stream built from fan videos / Selling stream tickets / Nothing — keep it all
+66. What do you think kills this project? *(Checkboxes)* Organisers never adopt it / The network dies at the exact moment it matters / Fans will not install anything / Stadium or government rules / No one pays / Half-built features that fail in public / Nobody trusts an app in an emergency / One bad incident the press blames it for / A TV rights deal blocks the fan stream / Streaming costs too much data for Ugandan fans
 67. How likely are you to tell someone about it? *(Rating 0-10, required)*
 
 **Last words** *(everyone)*
