@@ -1,1106 +1,1274 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LinkUp AI — tell us what you think (3-minute survey)</title>
-<meta name="description" content="Feedback survey for LinkUp AI (MEMOZA): watch major Ugandan events live from anywhere through a fan-powered stream, plus crowd safety that works on *384# with no data.">
-<meta name="theme-color" content="#0B1512">
-<style>
-  :root {
-    --bg0: #07100D;
-    --bg1: #0F1A16;
-    --bg2: #1A2721;
-    --line: #24342D;
-    --green: #22C55E;
-    --green-soft: rgba(34, 197, 94, .12);
-    --gold: #F5B942;
-    --text: #E9F1ED;
-    --muted: #93A79D;
-    --danger: #F87171;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: radial-gradient(120% 90% at 50% -10%, #12241D 0%, var(--bg0) 60%);
-    color: var(--text);
-    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 680px; margin: 0 auto; padding: 26px 18px 70px; }
-  header { margin-bottom: 20px; }
-  .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--green-soft); color: var(--green);
-    border: 1px solid rgba(34,197,94,.3);
-    border-radius: 999px; padding: 5px 12px;
-    font-size: 11.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
-  }
-  h1 { font-size: 27px; line-height: 1.2; margin: 14px 0 8px; letter-spacing: -.4px; }
-  .sub { color: var(--muted); font-size: 14.5px; margin: 0 0 10px; }
-
-  /* Explainer blocks */
-  .intro { background: var(--bg1); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin: 18px 0 0; }
-  .intro h2 { font-size: 16px; margin: 0 0 8px; color: var(--gold); letter-spacing: .02em; }
-  .intro h3 { font-size: 12.5px; margin: 16px 0 6px; color: var(--green); text-transform: uppercase; letter-spacing: .07em; }
-  .intro p { margin: 0; font-size: 14.5px; }
-  .how { margin: 0; padding-left: 20px; }
-  .how li { margin-bottom: 8px; font-size: 14.5px; }
-  .how li:last-child { margin-bottom: 0; }
-  details { margin-top: 16px; border-top: 1px dashed var(--line); padding-top: 12px; }
-  summary { cursor: pointer; color: var(--green); font-weight: 800; font-size: 13.5px; list-style: none; }
-  summary::-webkit-details-marker { display: none; }
-  summary::before { content: "+ "; }
-  details[open] summary::before { content: "3  "; }
-  .story { border-left: 3px solid var(--green); padding-left: 14px; margin-top: 12px; }
-  .story p { margin: 0 0 10px; font-size: 14px; }
-  .story p:last-child { margin-bottom: 0; }
-  .honest { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 12.5px; }
-
-  /* Grey microcopy that explains a feature right where it is rated */
-  .tip { display: block; color: var(--muted); font-weight: 500; font-size: 12.5px; margin: -6px 0 10px; }
-
-  .progress {
-    position: sticky; top: 0; z-index: 5;
-    background: rgba(7,16,13,.94); backdrop-filter: blur(6px);
-    padding: 10px 18px 8px; margin: 22px -18px 6px;
-    border-bottom: 1px solid var(--line);
-    font-size: 12px; color: var(--muted); font-weight: 700;
-  }
-  .bar { height: 5px; background: var(--bg2); border-radius: 99px; overflow: hidden; margin-top: 7px; }
-  .bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--green), var(--gold)); transition: width .3s ease; }
-
-  fieldset {
-    border: 1px solid var(--line); background: var(--bg1);
-    border-radius: 16px; padding: 18px 18px 8px; margin: 18px 0 0;
-  }
-  legend {
-    font-size: 11.5px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--gold); padding: 0 8px; margin-left: -4px;
-  }
-  .q { padding: 15px 0 11px; border-bottom: 1px dashed var(--line); }
-  fieldset .q:last-of-type { border-bottom: 0; }
-  .q > label, .qt { display: block; font-weight: 700; margin-bottom: 9px; }
-  .hint { color: var(--muted); font-weight: 500; font-size: 12.5px; margin: -5px 0 9px; display: block; }
-  .opt {
-    display: flex; align-items: flex-start; gap: 10px;
-    background: var(--bg2); border: 1px solid transparent;
-    padding: 10px 12px; border-radius: 11px; cursor: pointer;
-    font-size: 14px; margin-bottom: 7px;
-  }
-  .opt:hover { border-color: rgba(34,197,94,.4); }
-  .opt input { accent-color: var(--green); width: 17px; height: 17px; flex: none; margin-top: 2px; }
-  .row { display: grid; gap: 7px; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); }
-  .row .opt { margin-bottom: 0; }
-  textarea, input[type="text"], input[type="email"] {
-    width: 100%; background: var(--bg2); color: var(--text);
-    border: 1px solid var(--line); border-radius: 11px;
-    padding: 11px 12px; font: inherit; font-size: 14px;
-  }
-  textarea { min-height: 84px; resize: vertical; }
-  textarea:focus, input:focus { outline: 2px solid rgba(34,197,94,.45); border-color: transparent; }
-
-  /* 1-5 and 0-10 scales */
-  .scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-  .scale label {
-    background: var(--bg2); border: 1px solid transparent; border-radius: 10px;
-    padding: 9px 0; text-align: center; cursor: pointer; font-weight: 700; font-size: 14px;
-  }
-  .scale label:has(input:checked) { background: var(--green); color: #06231A; }
-  .nps { grid-template-columns: repeat(11, 1fr); }
-  .nps label { font-size: 12.5px; padding: 8px 0; }
-  .nps label:has(input:checked) { background: var(--gold); color: #2A1A00; }
-  .ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 11.5px; margin-top: 6px; }
-
-  /* Rate-each-feature grid */
-  .rate { padding: 11px 0; border-bottom: 1px dashed var(--line); }
-  .rate:last-child { border-bottom: 0; }
-  .rate .qt { font-size: 14px; margin-bottom: 7px; }
-  .rate .qt small { display: block; color: var(--muted); font-weight: 500; font-size: 12px; margin-top: 2px; }
-
-  .send {
-    margin-top: 28px; width: 100%;
-    background: var(--green); color: #06231A; border: 0;
-    font-size: 16px; font-weight: 900; letter-spacing: .02em;
-    padding: 16px; border-radius: 13px; cursor: pointer;
-  }
-  .send[disabled] { opacity: .6; cursor: wait; }
-  .err { color: var(--danger); font-size: 13.5px; margin-top: 10px; display: none; font-weight: 600; }
-  .note { color: var(--muted); font-size: 12.5px; margin-top: 14px; }
-  #thanks { display: none; text-align: center; padding: 34px 8px; }
-  #thanks h2 { font-size: 22px; margin-bottom: 8px; }
-  #thanks p { color: var(--muted); }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <span class="badge">LinkUp AI &middot; MEMOZA</span>
-    <h1>Tell us what you really think</h1>
-    <p class="sub">Three minutes, no sign-up, anonymous unless you ask us to reply. Be blunt — "I would never use that" is more useful to us than a polite yes.</p>
-  </header>
-
-  <div class="intro">
-    <h2>What LinkUp AI is</h2>
-    <p>A <strong>fan-powered live stream</strong> for big Ugandan events — Namboole matches, Blankets &amp; Wine, Nyege Nyege. The fans already inside the stadium are the cameras, and anyone anywhere in the world can open one link and watch through their eyes.</p>
-    <h3>How it works</h3>
-    <ol class="how">
-      <li><b>Watch from anywhere.</b> Open one link on your phone, TV or laptop and see the event live, from any country. You get the main view, plus views filmed by fans sitting in different parts of the ground.</li>
-      <li><b>The fans make it.</b> You record about fifteen seconds of your stand and send it. It plays on the big screen at the stadium, and it goes into the stream for people watching from far away. Because it comes from hundreds of phones, it keeps working even when the stadium network falls over.</li>
-      <li><b>The safety part, for people who are there.</b> One tap calls help if someone is hurt. A simple group list keeps the people you came with together. A lost child can be reported by name in seconds. All of it works on <strong>*384#</strong> on any phone, with no internet. Most days you will never touch this part.</li>
-    </ol>
-    <p class="honest">What already exists today: the app, the <strong>*384#</strong> menu, the big screen at the stadium playing videos fans sent in, the organiser's own page where reports arrive, and one link you can open from anywhere to watch those videos. What we have not built yet is a full live stream of the whole match — and whether people would watch it and pay for it is exactly what this survey asks.</p>
-    <details>
-      <summary>See a real day at the match — the long version, if you want it</summary>
-      <div class="story">
-        <p>Grace and her two friends arrive at Namboole. She opens the app, types in the event code <strong>CRANES2024</strong>, and makes a group called "Green Caps" with a PIN and a meeting point at Gate C. That group is just a small list of the people she came with, so one alert reaches all of them at the same time. Her uncle, on a phone with no internet, dials <strong>*384#</strong> and joins the same event and the same group using that PIN. Nobody needed data. Her brother in Nairobi opens one link and watches Grace's part of the stand on his laptop.</p>
-        <p>Late in the second half a man collapses near the terrace. Someone taps <strong>SOS &rarr; Medical</strong>; on a phone without internet it is option 3 on the <strong>*384#</strong> menu. The system reads the report and marks it <em>Medical — high priority</em>, so it jumps to the top of the organiser's page instead of waiting behind everything else. A short line about it also runs along the bottom of the big screen at the stadium, so stewards on the ground can see it. When a steward closes the report on that page, the screen stops showing it and the stadium's safety number updates itself.</p>
-        <p>The fun side: a live poll asks who should be man of the match. Whether you are in the stadium or in another country, you vote and have a real chance of <strong>UGX 5,000 airtime</strong> landing on your line. Grace films fifteen seconds of her stand. It appears on the big screen at the stadium and in the link her brother is watching. At half-time the organiser chooses the best clip so everybody sees it, and a steward points one phone camera at the stand — which goes live on the screen, and to fans watching from other countries.</p>
-        <p>And when a child is separated from his father, the father types his name, how old he is and where he was last seen — in the app, or on <strong>*384#</strong> if his data is finished. Within seconds it is on the organiser's page and on the big screen. The moment security finds him, one tap marks the child found, and the family gets an SMS.</p>
-      </div>
-    </details>
-  </div>
-
-  <div class="progress">
-    <div id="ptext">0 of 0 answered</div>
-    <div class="bar"><span id="pfill"></span></div>
-  </div>
-
-  <form id="form" autocomplete="off">
-    <!-- Collector: FormSubmit. Set COLLECTOR_EMAIL at the bottom of this file. -->
-    <input type="hidden" name="_subject" value="New LinkUp AI survey response">
-    <input type="hidden" name="_template" value="table">
-    <input type="text" name="_honey" style="display:none">
-
-    <fieldset>
-      <legend>About you</legend>
-
-      <div class="q">
-        <span class="qt">Which best describes you?</span>
-        <span class="hint">This changes the questions you see next.</span>
-        <label class="opt"><input type="radio" name="role" value="Attendee" required> I attend big events — matches, concerts, festivals</label>
-        <label class="opt"><input type="radio" name="role" value="Organizer" required> I organise, steward or run safety at events</label>
-        <label class="opt"><input type="radio" name="role" value="Both" required> Both — I go to events and I work them</label>
-        <label class="opt"><input type="radio" name="role" value="Friend" required> Neither — a friend, judge or just curious</label>
-      </div>
-
-      <div class="q">
-        <label for="city">City you usually attend events in <span class="hint">Optional.</span></label>
-        <input type="text" id="city" name="city" placeholder="e.g. Kampala, Jinja, Gulu">
-      </div>
-
-      <div class="q">
-        <span class="qt">What do you carry to an event?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="phone" value="Android smartphone" required> Android smartphone</label>
-          <label class="opt"><input type="radio" name="phone" value="iPhone" required> iPhone</label>
-          <label class="opt"><input type="radio" name="phone" value="Basic phone only" required> Basic phone only</label>
-          <label class="opt"><input type="radio" name="phone" value="Both smartphone and basic" required> One of each</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">How often are you in a crowd of 1,000+ people?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="frequency" value="Never" required> Never</label>
-          <label class="opt"><input type="radio" name="frequency" value="1-2 times a year" required> 1-2 a year</label>
-          <label class="opt"><input type="radio" name="frequency" value="Monthly" required> Monthly</label>
-          <label class="opt"><input type="radio" name="frequency" value="Almost every week" required> Weekly or more</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">How do you usually attend?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="attend_with" value="Alone"> Alone</label>
-          <label class="opt"><input type="radio" name="attend_with" value="With 2-5 friends"> With 2-5 friends</label>
-          <label class="opt"><input type="radio" name="attend_with" value="With family, children included"> With family</label>
-          <label class="opt"><input type="radio" name="attend_with" value="With an organised group"> With an organised group</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">What is your data bundle situation at a big event?</span>
-        <span class="hint">This is the single most important reality for our design.</span>
-        <label class="opt"><input type="radio" name="data_reality" value="Always have data" required> I always have data that works</label>
-        <label class="opt"><input type="radio" name="data_reality" value="Runs out mid-event" required> It runs out during the event</label>
-        <label class="opt"><input type="radio" name="data_reality" value="Switch data off to save money" required> I turn data off to save money</label>
-        <label class="opt"><input type="radio" name="data_reality" value="Network too congested to use" required> The network is too jammed to use anyway</label>
-        <label class="opt"><input type="radio" name="data_reality" value="No data at all, basic phone" required> I have no data at all</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">How do you behave about event apps?</span>
-        <label class="opt"><input type="radio" name="app_habit" value="Install for every event" required> I install whatever the event asks</label>
-        <label class="opt"><input type="radio" name="app_habit" value="Only if it clearly pays me" required> Only if it clearly pays me or protects me</label>
-        <label class="opt"><input type="radio" name="app_habit" value="Never install, prefer USSD" required> I never install — give me a code to dial</label>
-        <label class="opt"><input type="radio" name="app_habit" value="Forget it at home" required> I download it and never open it</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Where do you normally get event information from?</span>
-        <div class="row">
-          <label class="opt"><input type="checkbox" name="info_source" value="WhatsApp"> WhatsApp</label>
-          <label class="opt"><input type="checkbox" name="info_source" value="Twitter or X"> Twitter/X</label>
-          <label class="opt"><input type="checkbox" name="info_source" value="Poster or ticket"> Poster or ticket</label>
-          <label class="opt"><input type="checkbox" name="info_source" value="Friend telling me"> A friend</label>
-          <label class="opt"><input type="checkbox" name="info_source" value="Radio or TV"> Radio/TV</label>
-          <label class="opt"><input type="checkbox" name="info_source" value="Organiser announcement"> Organiser announcement</label>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Did that description land?</legend>
-      <div class="q">
-        <span class="qt">Had you seen LinkUp AI before this page?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="seen_app" value="Yes, used it" required> Used it</label>
-          <label class="opt"><input type="radio" name="seen_app" value="Yes, seen a demo" required> Seen a demo</label>
-          <label class="opt"><input type="radio" name="seen_app" value="Only heard about it" required> Heard of it</label>
-          <label class="opt"><input type="radio" name="seen_app" value="No, first time" required> First time</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">After reading the description above, how clear is it what this does?</span>
-        <div class="scale">
-          <label><input type="radio" name="clarity" value="1" required> 1</label>
-          <label><input type="radio" name="clarity" value="2" required> 2</label>
-          <label><input type="radio" name="clarity" value="3" required> 3</label>
-          <label><input type="radio" name="clarity" value="4" required> 4</label>
-          <label><input type="radio" name="clarity" value="5" required> 5</label>
-        </div>
-        <div class="ends"><span>Still confusing</span><span>Crystal clear</span></div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Which parts still do not make sense?</span>
-        <span class="hint">Tick everything that left you unsure.</span>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="Why it exists"> Why this needs to exist at all</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="How SOS reaches people"> How a tap on SOS actually reaches a steward</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="How *384# works with no internet"> How <b>*384#</b> can work when there is no internet</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="What the stadium screen shows"> What the big screen at the stadium would actually show</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="Who runs the console"> Who uses the organiser's page, and what do they do with it</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="How airtime is paid"> How the airtime actually reaches my phone</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="How the AI decides priority"> How the system decides a report is high priority</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="How a fan clip reaches the stream"> How a fan's phone video ends up in the stream</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="What is built versus planned"> Which parts exist today and which are still an idea</label>
-        <label class="opt"><input type="checkbox" name="unclear_parts" value="Nothing, it was clear"> Nothing — it was clear</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Which line made you want to keep reading?</span>
-        <span class="hint">This decides the headline on the landing page and in the pitch deck.</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="hook_line" value="Watch from anywhere" required> "Watch from anywhere" — the stream you open on any screen</label>
-          <label class="opt"><input type="radio" name="hook_line" value="The crowd builds the broadcast" required> "The fans make it" — the people inside are the camera crew</label>
-          <label class="opt"><input type="radio" name="hook_line" value="The offline safety net" required> "The safety part" — works on *384# with no internet</label>
-          <label class="opt"><input type="radio" name="hook_line" value="SOS and missing people" required> The safety side — SOS, group PINs, lost children</label>
-          <label class="opt"><input type="radio" name="hook_line" value="None landed" required> None of them landed</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you have it on your phone at the next big event?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="install_intent" value="Definitely" required> Definitely</label>
-          <label class="opt"><input type="radio" name="install_intent" value="Probably" required> Probably</label>
-          <label class="opt"><input type="radio" name="install_intent" value="Only if the stadium requires it" required> Only if required</label>
-          <label class="opt"><input type="radio" name="install_intent" value="No" required> No</label>
-          <label class="opt"><input type="radio" name="install_intent" value="Not sure" required> Not sure</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">When would you actually open it?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="open_trigger" value="Before leaving home"> Before I leave home</label>
-          <label class="opt"><input type="radio" name="open_trigger" value="At the gate"> At the gate when I check in</label>
-          <label class="opt"><input type="radio" name="open_trigger" value="Only in an emergency"> Only when something goes wrong</label>
-          <label class="opt"><input type="radio" name="open_trigger" value="For polls and content"> For polls and content during the event</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <label for="naming">Does the name make sense to you? What would you call it?</label>
-        <textarea id="naming" name="naming" placeholder="Right now it is LinkUp AI, also called MEMOZA. One line is enough."></textarea>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Watching from anywhere</legend>
-
-      <div class="q">
-        <span class="qt">Where would you be when a big event is on?</span>
-        <label class="opt"><input type="radio" name="watch_from" value="In the stadium" required> In the stadium, in the crowd</label>
-        <label class="opt"><input type="radio" name="watch_from" value="At home in Uganda" required> At home in Uganda</label>
-        <label class="opt"><input type="radio" name="watch_from" value="Abroad" required> Abroad — I follow Uganda from a distance</label>
-        <label class="opt"><input type="radio" name="watch_from" value="I do not follow live events" required> I do not really follow live events</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">How useful would a live stream of these events be to you?</span>
-        <div class="scale">
-          <label><input type="radio" name="stream_interest" value="1" required> 1</label>
-          <label><input type="radio" name="stream_interest" value="2" required> 2</label>
-          <label><input type="radio" name="stream_interest" value="3" required> 3</label>
-          <label><input type="radio" name="stream_interest" value="4" required> 4</label>
-          <label><input type="radio" name="stream_interest" value="5" required> 5</label>
-        </div>
-        <div class="ends"><span>Useless</span><span>Exactly what I want</span></div>
-      </div>
-
-      <div class="q">
-        <span class="qt">What would you actually watch?</span>
-        <label class="opt"><input type="checkbox" name="stream_what" value="Full event live"> The whole match or festival, live</label>
-        <label class="opt"><input type="checkbox" name="stream_what" value="Highlights and key moments"> Goals, highlights and key moments only</label>
-        <label class="opt"><input type="checkbox" name="stream_what" value="Crowd and stand atmosphere"> The crowd and the atmosphere in the stands, filmed by fans</label>
-        <label class="opt"><input type="checkbox" name="stream_what" value="Backstage and set content"> Backstage and set content</label>
-        <label class="opt"><input type="checkbox" name="stream_what" value="Talk around the event"> Pre and post-event talk</label>
-        <label class="opt"><input type="checkbox" name="stream_what" value="Nothing, only in person"> Nothing — I only watch in person</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">On what screen?</span>
-        <div class="row">
-          <label class="opt"><input type="checkbox" name="stream_device" value="Phone"> Phone</label>
-          <label class="opt"><input type="checkbox" name="stream_device" value="Television"> Television</label>
-          <label class="opt"><input type="checkbox" name="stream_device" value="Laptop"> Laptop</label>
-          <label class="opt"><input type="checkbox" name="stream_device" value="Tablet"> Tablet</label>
-          <label class="opt"><input type="checkbox" name="stream_device" value="Projected with friends"> Projected with friends</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you pay to watch?</span>
-        <label class="opt"><input type="radio" name="stream_pay" value="Only if it is free" required> Only if it is free</label>
-        <label class="opt"><input type="radio" name="stream_pay" value="UGX 2,000 to 5,000 per event" required> UGX 2,000-5,000 for one event</label>
-        <label class="opt"><input type="radio" name="stream_pay" value="UGX 10,000 or more" required> UGX 10,000 or more</label>
-        <label class="opt"><input type="radio" name="stream_pay" value="1 to 3 US dollars per match" required> 1-3 USD per match, from abroad</label>
-        <label class="opt"><input type="radio" name="stream_pay" value="A monthly subscription" required> A monthly subscription</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Rate the two streaming ideas — how much do you want them?</span>
-        <span class="hint">1 = I do not care, 5 = build it this year.</span>
-        <div class="rate">
-          <span class="qt">A live stream room for big events<small>Open one link from any country and watch — the main view, plus views filmed by fans in different stands.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_stream" value="1"> 1</label>
-            <label><input type="radio" name="use_stream" value="2"> 2</label>
-            <label><input type="radio" name="use_stream" value="3"> 3</label>
-            <label><input type="radio" name="use_stream" value="4"> 4</label>
-            <label><input type="radio" name="use_stream" value="5"> 5</label>
-          </div>
-        </div>
-        <div class="rate">
-          <span class="qt">A stream built from fan clips<small>Short videos from fans in every stand, played one after another as a single live stream for people watching from far away.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_fanmix" value="1"> 1</label>
-            <label><input type="radio" name="use_fanmix" value="2"> 2</label>
-            <label><input type="radio" name="use_fanmix" value="3"> 3</label>
-            <label><input type="radio" name="use_fanmix" value="4"> 4</label>
-            <label><input type="radio" name="use_fanmix" value="5"> 5</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">A stream made from fans' phone videos instead of a proper TV camera — honest reaction?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="fan_mix_trust" value="That is the point, raw is better" required> That is the point — I want the real feel</label>
-          <label class="opt"><input type="radio" name="fan_mix_trust" value="Fine, if it stays watchable" required> Fine, as long as it stays easy to watch</label>
-          <label class="opt"><input type="radio" name="fan_mix_trust" value="I would rather have the official feed" required> I would rather have the TV camera</label>
-          <label class="opt"><input type="radio" name="fan_mix_trust" value="Not interested either way" required> Not interested either way</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">What would stop you from watching a stream like this?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="stream_blocker" value="Data cost" required> My data cost</label>
-          <label class="opt"><input type="radio" name="stream_blocker" value="Not the full match" required> It is not the full match</label>
-          <label class="opt"><input type="radio" name="stream_blocker" value="Poor video quality" required> Poor video quality</label>
-          <label class="opt"><input type="radio" name="stream_blocker" value="No commentary in my language" required> No commentary in my language</label>
-          <label class="opt"><input type="radio" name="stream_blocker" value="I watch with people on TV" required> I watch with people, on TV</label>
-          <label class="opt"><input type="radio" name="stream_blocker" value="Nothing, I would watch" required> Nothing — I would watch</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Does it matter if the stream is about 30 seconds behind live?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="stream_latency" value="No, atmosphere is enough" required> No — the atmosphere is enough</label>
-          <label class="opt"><input type="radio" name="stream_latency" value="Yes, I want it live" required> Yes — I want it live</label>
-          <label class="opt"><input type="radio" name="stream_latency" value="Only matters for scores" required> Only matters for scores</label>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset id="sec-attendee" hidden>
-      <legend>Your experience as an attendee</legend>
-
-      <div class="q">
-        <span class="qt">At a big event, which of these has happened to you?</span>
-        <label class="opt"><input type="checkbox" name="incident" value="Lost a friend in the crowd"> Separated from my people and could not reconnect</label>
-        <label class="opt"><input type="checkbox" name="incident" value="Lost a child"> Lost track of a child</label>
-        <label class="opt"><input type="checkbox" name="incident" value="Medical emergency nearby"> A medical emergency right next to me</label>
-        <label class="opt"><input type="checkbox" name="incident" value="Dangerous crowd crush"> A crush or stampede scare</label>
-        <label class="opt"><input type="checkbox" name="incident" value="Network or data failed"> My phone or the network completely failed</label>
-        <label class="opt"><input type="checkbox" name="incident" value="Violence or theft"> Fighting, theft or harassment</label>
-        <label class="opt"><input type="checkbox" name="incident" value="Nothing yet"> None of these</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Which of these would you really use?</span>
-        <span class="hint">Tick up to three — the honest answer is more useful than the polite one.</span>
-        <label class="opt"><input type="checkbox" name="would_use" value="SOS panic alert" data-group-max="3"> One-tap SOS to organisers and on-duty security</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="Safety group" data-group-max="3"> A group list so I know the people I came with are safe</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="Missing person board" data-group-max="3"> Reporting a lost child or lost friend by name and where they were last seen</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="USSD *384#" data-group-max="3"> Doing all of it on *384# with no data</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="Fan polls with airtime" data-group-max="3"> Live polls that pay airtime</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="Shout-outs on the big screen" data-group-max="3"> Putting my message or my video on the big screen at the stadium</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="Meeting point finder" data-group-max="3"> Finding the nearest safe meeting point</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="Clip upload and memory mix" data-group-max="3"> Sending a video of my stand, and getting the day back as one edited video</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="Watching the stream remotely" data-group-max="3"> Watching the match live on my phone when I am not at the ground</label>
-        <label class="opt"><input type="checkbox" name="would_use" value="Being in the fan broadcast" data-group-max="3"> My clip going into the stream the whole country is watching</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Rate each one — how useful would it be to you?</span>
-        <span class="hint">1 = I would never touch it, 5 = I would insist on it.</span>
-
-        <div class="rate">
-          <span class="qt">One-tap SOS<small>Alerts stewards and medical staff instantly about crushes, fires or medical issues.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_sos" value="1"> 1</label>
-            <label><input type="radio" name="use_sos" value="2"> 2</label>
-            <label><input type="radio" name="use_sos" value="3"> 3</label>
-            <label><input type="radio" name="use_sos" value="4"> 4</label>
-            <label><input type="radio" name="use_sos" value="5"> 5</label>
-          </div>
-        </div>
-
-        <div class="rate">
-          <span class="qt">A group list with a PIN<small>You name the people you came with and set a PIN. Anyone with the PIN joins that group, and one alert reaches the whole group at once.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_group" value="1"> 1</label>
-            <label><input type="radio" name="use_group" value="2"> 2</label>
-            <label><input type="radio" name="use_group" value="3"> 3</label>
-            <label><input type="radio" name="use_group" value="4"> 4</label>
-            <label><input type="radio" name="use_group" value="5"> 5</label>
-          </div>
-        </div>
-
-        <div class="rate">
-          <span class="qt">Missing person reporting<small>Name, age and where they were last seen. It goes to the organisers and onto the big screen at the stadium.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_missing" value="1"> 1</label>
-            <label><input type="radio" name="use_missing" value="2"> 2</label>
-            <label><input type="radio" name="use_missing" value="3"> 3</label>
-            <label><input type="radio" name="use_missing" value="4"> 4</label>
-            <label><input type="radio" name="use_missing" value="5"> 5</label>
-          </div>
-        </div>
-
-        <div class="rate">
-          <span class="qt">The *384# menu<small>Dial it on any phone, even a torchlight one. No internet, nothing to download.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_ussd" value="1"> 1</label>
-            <label><input type="radio" name="use_ussd" value="2"> 2</label>
-            <label><input type="radio" name="use_ussd" value="3"> 3</label>
-            <label><input type="radio" name="use_ussd" value="4"> 4</label>
-            <label><input type="radio" name="use_ussd" value="5"> 5</label>
-          </div>
-        </div>
-
-        <div class="rate">
-          <span class="qt">Live polls with airtime<small>Vote on man of the match from the stand or from abroad, with a real chance to win UGX 5,000 airtime.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_polls" value="1"> 1</label>
-            <label><input type="radio" name="use_polls" value="2"> 2</label>
-            <label><input type="radio" name="use_polls" value="3"> 3</label>
-            <label><input type="radio" name="use_polls" value="4"> 4</label>
-            <label><input type="radio" name="use_polls" value="5"> 5</label>
-          </div>
-        </div>
-
-        <div class="rate">
-          <span class="qt">Your message or video on the big screen<small>Send a shout or a clip and it shows at the stadium, and in the stream people watching from far away see too.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_shouts" value="1"> 1</label>
-            <label><input type="radio" name="use_shouts" value="2"> 2</label>
-            <label><input type="radio" name="use_shouts" value="3"> 3</label>
-            <label><input type="radio" name="use_shouts" value="4"> 4</label>
-            <label><input type="radio" name="use_shouts" value="5"> 5</label>
-          </div>
-        </div>
-
-        <div class="rate">
-          <span class="qt">Sending a clip, and getting your day back<small>Record 15 seconds from your stand. It joins the stream at the stadium, and after the event the day comes back to you as one edited video.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_clips" value="1"> 1</label>
-            <label><input type="radio" name="use_clips" value="2"> 2</label>
-            <label><input type="radio" name="use_clips" value="3"> 3</label>
-            <label><input type="radio" name="use_clips" value="4"> 4</label>
-            <label><input type="radio" name="use_clips" value="5"> 5</label>
-          </div>
-        </div>
-
-        <div class="rate">
-          <span class="qt">Safe meeting point finder<small>If a crush starts, find the nearest safe exit and get it texted to you.</small></span>
-          <div class="scale">
-            <label><input type="radio" name="use_meeting" value="1"> 1</label>
-            <label><input type="radio" name="use_meeting" value="2"> 2</label>
-            <label><input type="radio" name="use_meeting" value="3"> 3</label>
-            <label><input type="radio" name="use_meeting" value="4"> 4</label>
-            <label><input type="radio" name="use_meeting" value="5"> 5</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you genuinely dial *384# for safety instead of an app?</span>
-        <span class="tip">Example: a torchlight phone dials *384# and joins the same group as everyone else's smartphones — same alert, same meeting point, no data needed.</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="ussd_appetite" value="Yes, definitely" required> Yes, definitely</label>
-          <label class="opt"><input type="radio" name="ussd_appetite" value="Probably" required> Probably</label>
-          <label class="opt"><input type="radio" name="ussd_appetite" value="Not sure" required> Not sure</label>
-          <label class="opt"><input type="radio" name="ussd_appetite" value="No" required> No</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">In a real emergency, would you stop and dial a menu, or just shout?</span>
-        <label class="opt"><input type="radio" name="ussd_in_panic" value="Dial it, it is fastest" required> I would dial — it is faster than finding a steward</label>
-        <label class="opt"><input type="radio" name="ussd_in_panic" value="One tap in the app" required> One tap in the app, if I have it open</label>
-        <label class="opt"><input type="radio" name="ussd_in_panic" value="Shout and wave" required> I would shout and wave my arms</label>
-        <label class="opt"><input type="radio" name="ussd_in_panic" value="Find security at a gate" required> Walk to the nearest security person</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you report an emergency through the app instead of to a person?</span>
-        <div class="scale">
-          <label><input type="radio" name="trust" value="1" required> 1</label>
-          <label><input type="radio" name="trust" value="2" required> 2</label>
-          <label><input type="radio" name="trust" value="3" required> 3</label>
-          <label><input type="radio" name="trust" value="4" required> 4</label>
-          <label><input type="radio" name="trust" value="5" required> 5</label>
-        </div>
-        <div class="ends"><span>Never</span><span>Always</span></div>
-      </div>
-
-      <div class="q">
-        <span class="qt">What would you worry about?</span>
-        <span class="tip">Example: you report a lost child with a name and where he was last seen. Everyone in your group is told the moment you send it.</span>
-        <label class="opt"><input type="checkbox" name="worries" value="Location tracking"> My location being tracked</label>
-        <label class="opt"><input type="checkbox" name="worries" value="Phone number stored"> My number being stored and sold</label>
-        <label class="opt"><input type="checkbox" name="worries" value="People seeing my SOS"> The crowd or screen knowing I raised an alert</label>
-        <label class="opt"><input type="checkbox" name="worries" value="Spam SMS"> Getting flooded with SMS after</label>
-        <label class="opt"><input type="checkbox" name="worries" value="Battery"> Battery dying because the app runs</label>
-        <label class="opt"><input type="checkbox" name="worries" value="Data cost"> It eating my bundle</label>
-        <label class="opt"><input type="checkbox" name="worries" value="False alarms"> Someone abusing it as a prank</label>
-        <label class="opt"><input type="checkbox" name="worries" value="Nothing"> None of these worry me</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Which language would you use it in?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="language" value="English"> English</label>
-          <label class="opt"><input type="radio" name="language" value="Luganda"> Luganda</label>
-          <label class="opt"><input type="radio" name="language" value="Both English and Luganda"> Both</label>
-          <label class="opt"><input type="radio" name="language" value="Swahili"> Swahili</label>
-          <label class="opt"><input type="radio" name="language" value="Runyankole or Rukiga"> Runyankole/Rukiga</label>
-          <label class="opt"><input type="radio" name="language" value="Another language"> Another — say below</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Does airtime for voting bring you back, or is it noise?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="airtime_pull" value="Big reason to use it" required> A big reason to use it</label>
-          <label class="opt"><input type="radio" name="airtime_pull" value="Nice bonus" required> A nice bonus</label>
-          <label class="opt"><input type="radio" name="airtime_pull" value="Does not interest me" required> Does not interest me</label>
-          <label class="opt"><input type="radio" name="airtime_pull" value="Feels like a gimmick" required> Feels like a gimmick</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you put your own message or video on the big screen at the stadium?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="wall_eagerness" value="Yes, always"> Yes, always</label>
-          <label class="opt"><input type="radio" name="wall_eagerness" value="Only if my friends would see it"> Only if my friends would see it</label>
-          <label class="opt"><input type="radio" name="wall_eagerness" value="No, too embarrassing"> No — too embarrassing</label>
-          <label class="opt"><input type="radio" name="wall_eagerness" value="Never"> Never</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you pay for the finished video of your day — all the clips from the crowd edited into one?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="pay_for_memory" value="Yes, UGX 2,000-5,000" required> Yes, UGX 2,000-5,000</label>
-          <label class="opt"><input type="radio" name="pay_for_memory" value="Yes, UGX 10,000" required> Yes, around UGX 10,000</label>
-          <label class="opt"><input type="radio" name="pay_for_memory" value="Only if free" required> Only if it is free</label>
-          <label class="opt"><input type="radio" name="pay_for_memory" value="No interest" required> No interest</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <label for="dealbreaker">What would stop you from using an event app like this?</label>
-        <textarea id="dealbreaker" name="dealbreaker" placeholder="Battery, trust, data cost, embarrassment, not knowing it exists — whatever it really is."></textarea>
-      </div>
-
-      <div class="q">
-        <label for="missing_feature">What is missing that you would want?</label>
-        <textarea id="missing_feature" name="missing_feature" placeholder="Ticket check, cash, transport home, a way to find a toilet queue, anything."></textarea>
-      </div>
-
-      <div class="q">
-        <label for="access_needs">Anything that would make it hard for you, or someone you look after, to use it?</label>
-        <textarea id="access_needs" name="access_needs" placeholder="Small text, reading, hearing, vision, an older phone, no data for a child's phone..."></textarea>
-      </div>
-    </fieldset>
-
-    <fieldset id="sec-organizer" hidden>
-      <legend>Your work as an organiser or steward</legend>
-
-      <div class="q">
-        <span class="qt">How do incident reports reach you today?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="reports_today" value="Radio" required> Radio</label>
-          <label class="opt"><input type="radio" name="reports_today" value="WhatsApp group" required> WhatsApp</label>
-          <label class="opt"><input type="radio" name="reports_today" value="Phone calls" required> Phone calls</label>
-          <label class="opt"><input type="radio" name="reports_today" value="Runners and walking stewards" required> Runners</label>
-          <label class="opt"><input type="radio" name="reports_today" value="Nothing formal" required> Nothing formal</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">How long does a report usually take to reach someone who can act?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="response_time" value="Under 2 minutes"> Under 2 min</label>
-          <label class="opt"><input type="radio" name="response_time" value="2-10 minutes"> 2-10 min</label>
-          <label class="opt"><input type="radio" name="response_time" value="10-30 minutes"> 10-30 min</label>
-          <label class="opt"><input type="radio" name="response_time" value="More than 30 minutes"> Over 30 min</label>
-          <label class="opt"><input type="radio" name="response_time" value="Never reliably"> Never reliably</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Which part of the organiser's page would help you the most during an event?</span>
-        <span class="tip">The organiser's page is one website open on a laptop at the stadium. Every SOS and lost-person report lands there, so the team sees which one to send help to first. The organiser also creates the event and its join code there, chooses which fan videos play on the big screen, and can put a steward's phone camera onto that screen. What comes next: switching between several live cameras, and selling tickets to the stream.</span>
-        <label class="opt"><input type="checkbox" name="console_need" value="Prioritised alerts"> Reports sorted by how serious they are (medical / security / fire / crush)</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Missing person board"> One lost-person list the whole team can see and update</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Live camera to screen"> Putting a steward's phone camera on the big screen</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Event and join-code setup"> Setting up an event quickly and getting its join code</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Crowd clip wall"> Picking which fan videos play on the big screen</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Live poll results"> Live poll results and how the crowd is feeling</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Health score"> One safety number for the whole event, going up or down as reports come in</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Group headcount"> Which groups have checked in, and which are still missing people</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Multi-angle broadcast console"> Choosing which camera the stream shows, like a TV director</label>
-        <label class="opt"><input type="checkbox" name="console_need" value="Stream ticketing"> Selling tickets to the stream and seeing who bought</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you let the system decide how serious a report is?</span>
-        <span class="tip">Example: someone reports a crowd crush. The system marks it medical and high priority straight away, so the team sends help to the worst report first instead of the oldest one.</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="triage_trust" value="Yes, with human override" required> Yes, if a human can override it</label>
-          <label class="opt"><input type="radio" name="triage_trust" value="Only for low-priority sorting" required> Only for sorting the small stuff</label>
-          <label class="opt"><input type="radio" name="triage_trust" value="No, staff must decide" required> No — staff must decide</label>
-          <label class="opt"><input type="radio" name="triage_trust" value="Only if it is logged" required> Only if every decision is logged</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">How much change could your team absorb before an event?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="staff_burden" value="An app for stewards is fine" required> An app for stewards is fine</label>
-          <label class="opt"><input type="radio" name="staff_burden" value="Needs under 30 minutes of training" required> Under 30 min of training</label>
-          <label class="opt"><input type="radio" name="staff_burden" value="Only if it replaces radio, not adds to it" required> Only if it replaces radio</label>
-          <label class="opt"><input type="radio" name="staff_burden" value="None, we cannot add tools" required> None — we cannot add tools</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">What would you want it connected to?</span>
-        <label class="opt"><input type="checkbox" name="integration" value="CCTV"> CCTV</label>
-        <label class="opt"><input type="checkbox" name="integration" value="PA and announcements"> PA and announcements</label>
-        <label class="opt"><input type="checkbox" name="integration" value="Ticketing or gate scanning"> Ticketing or gate scanning</label>
-        <label class="opt"><input type="checkbox" name="integration" value="Steward roster and deployment"> Steward roster</label>
-        <label class="opt"><input type="checkbox" name="integration" value="Stadium radio"> Stadium radio</label>
-        <label class="opt"><input type="checkbox" name="integration" value="Ambulance and police channels"> Ambulance and police channels</label>
-        <label class="opt"><input type="checkbox" name="integration" value="Nothing yet"> Nothing yet</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Which report would you want after the event?</span>
-        <label class="opt"><input type="checkbox" name="after_event_report" value="Incident timeline with response times"> Incident timeline with response times</label>
-        <label class="opt"><input type="checkbox" name="after_event_report" value="Missing person reconciliation"> Missing person reconciliation</label>
-        <label class="opt"><input type="checkbox" name="after_event_report" value="Crowd sentiment and poll data"> Crowd sentiment and poll data</label>
-        <label class="opt"><input type="checkbox" name="after_event_report" value="Clip library"> The clip library</label>
-        <label class="opt"><input type="checkbox" name="after_event_report" value="Zone and gate counts"> Zone and gate counts</label>
-        <label class="opt"><input type="checkbox" name="after_event_report" value="Evidence for insurers or police"> Evidence for insurers or police</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would an organiser pay for this per event?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="willing_to_pay" value="Free only" required> Only if free</label>
-          <label class="opt"><input type="radio" name="willing_to_pay" value="UGX 100,000 or less" required> Up to UGX 100k</label>
-          <label class="opt"><input type="radio" name="willing_to_pay" value="UGX 100,000 to 500,000" required> UGX 100k-500k</label>
-          <label class="opt"><input type="radio" name="willing_to_pay" value="More for a stadium" required> More, for a stadium</label>
-          <label class="opt"><input type="radio" name="willing_to_pay" value="A sponsor should pay it" required> A sponsor should pay</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Who should actually pay?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="payer" value="The organiser"> The organiser</label>
-          <label class="opt"><input type="radio" name="payer" value="The venue or stadium"> The venue</label>
-          <label class="opt"><input type="radio" name="payer" value="A sponsor"> A sponsor</label>
-          <label class="opt"><input type="radio" name="payer" value="A telco"> A telco</label>
-          <label class="opt"><input type="radio" name="payer" value="Federation or government"> Federation or government</label>
-          <label class="opt"><input type="radio" name="payer" value="Included in the ticket"> Baked into the ticket</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Streaming changes who owns the footage. Whose is it today?</span>
-        <span class="tip">If a TV broadcaster already holds the rights to your event, a fan stream can collide with that deal. This decides whether streaming is even sellable to you.</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="stream_rights" value="A TV broadcaster owns them" required> A TV broadcaster owns them</label>
-          <label class="opt"><input type="radio" name="stream_rights" value="We the organisers keep them" required> We keep them ourselves</label>
-          <label class="opt"><input type="radio" name="stream_rights" value="The venue or federation" required> The venue or federation</label>
-          <label class="opt"><input type="radio" name="stream_rights" value="Nobody has settled it" required> Nobody has settled it</label>
-          <label class="opt"><input type="radio" name="stream_rights" value="Not my area" required> Not my area</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you sell tickets to watch the stream rather than the seats?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="ppv_interest" value="Yes, extra revenue" required> Yes — money the stadium cannot hold</label>
-          <label class="opt"><input type="radio" name="ppv_interest" value="Yes, if fans get most of it" required> Yes, if the fans in the crowd get most of the value</label>
-          <label class="opt"><input type="radio" name="ppv_interest" value="Only if it does not empty seats" required> Only if it does not hurt ticket sales</label>
-          <label class="opt"><input type="radio" name="ppv_interest" value="No, it is the broadcaster business" required> No — that is the broadcaster's business</label>
-          <label class="opt"><input type="radio" name="ppv_interest" value="Need to see a number first" required> I need to see what it earns first</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <label for="organizer_blockers">What would make an organiser say no?</label>
-        <textarea id="organizer_blockers" name="organizer_blockers" placeholder="Cost, staff training, blame when something is missed, procurement, nothing working when the network is down..."></textarea>
-      </div>
-
-      <div class="q">
-        <label for="biggest_gap">What is the biggest gap in your operations today?</label>
-        <textarea id="biggest_gap" name="biggest_gap" placeholder="One sentence."></textarea>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>The stream and the big screen</legend>
-
-      <div class="q">
-        <span class="qt">Does showing fan videos and fan messages on the big screen make the event better?</span>
-        <span class="tip">The same videos and camera view can also sit in the stream, so people watching from far away see the stands too.</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="wall_value" value="A lot better" required> A lot better</label>
-          <label class="opt"><input type="radio" name="wall_value" value="A little better" required> A little better</label>
-          <label class="opt"><input type="radio" name="wall_value" value="No difference" required> No difference</label>
-          <label class="opt"><input type="radio" name="wall_value" value="Can be a danger" required> Can be a danger — distraction</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">What should the live camera show?</span>
-        <span class="tip">A steward points one phone camera at the stand or the gates, and what it sees goes onto the big screen at the stadium — and next, into the stream for people watching from far away.</span>
-        <label class="opt"><input type="checkbox" name="live_cam_use" value="The stand energy"> The stand energy — fans, colours, singing</label>
-        <label class="opt"><input type="checkbox" name="live_cam_use" value="Gates and crowd density"> Gates and crowd density, for safety</label>
-        <label class="opt"><input type="checkbox" name="live_cam_use" value="Pitch or stage"> The pitch or the stage</label>
-        <label class="opt"><input type="checkbox" name="live_cam_use" value="Fan interviews"> Fan interviews and reactions</label>
-        <label class="opt"><input type="checkbox" name="live_cam_use" value="Not needed"> I do not need a live camera</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">Which is the honest truth about this product?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="positioning" value="Streaming is the product, safety is the differentiator" required> Streaming is the product; safety is what makes it allowed to exist</label>
-          <label class="opt"><input type="radio" name="positioning" value="Safety first, streaming funds it" required> Safety first; the stream and the fans pay for it</label>
-          <label class="opt"><input type="radio" name="positioning" value="Equal, do not split them" required> Both, equally</label>
-          <label class="opt"><input type="radio" name="positioning" value="It should be safety only" required> Make it safety only, drop the stream</label>
-          <label class="opt"><input type="radio" name="positioning" value="Two separate products" required> They are two different products for two different buyers</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">Would you allow adverts from a sponsor on the big screen, if paying for them kept this tool free?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="sponsor_model" value="Yes, that is fine" required> Yes, that is fine</label>
-          <label class="opt"><input type="radio" name="sponsor_model" value="Yes, but keep it small" required> Yes, but keep it small</label>
-          <label class="opt"><input type="radio" name="sponsor_model" value="No, it cheapens the event" required> No, it would make the event feel like an advert</label>
-          <label class="opt"><input type="radio" name="sponsor_model" value="Only if the sponsor pays for safety" required> Only if it pays for safety</label>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>What we should do next</legend>
-
-      <div class="q">
-        <span class="qt">What should we build or fix first?</span>
-        <label class="opt"><input type="radio" name="first_priority" value="The global live stream" required> The live stream — watch from anywhere</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Reliable fan-clip stitching" required> Making the fan-video stream dependable and easy to watch</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Stream ticketing and payment" required> Stream tickets, payment and who gets the money</label>
-        <label class="opt"><input type="radio" name="first_priority" value="USSD reliability on 2G" required> Making *384# rock solid when the network is dying</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Faster SOS and dispatch" required> Faster SOS, with real response times</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Missing person workflow" required> The lost-child process, and joining a found person back to their family</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Live camera and wall" required> The live camera and the big screen at the stadium</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Real airtime rewards" required> Real airtime rewards for voting</label>
-        <label class="opt"><input type="radio" name="first_priority" value="App polish" required> A smoother, prettier app</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Offline mode" required> Working when the network dies completely</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Organiser pricing and pitch" required> A clear price and pitch for organisers</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Local languages" required> Luganda, Swahili and Runyankole support</label>
-        <label class="opt"><input type="radio" name="first_priority" value="Steward app" required> A separate view for stewards on the ground</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">What should we cut or stop promoting?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="cut_one" value="Fan polls"> Fan polls</label>
-          <label class="opt"><input type="radio" name="cut_one" value="Clip wall"> Fan videos on the big screen</label>
-          <label class="opt"><input type="radio" name="cut_one" value="Shout-outs"> Shout-outs</label>
-          <label class="opt"><input type="radio" name="cut_one" value="Meeting point finder"> Meeting point finder</label>
-          <label class="opt"><input type="radio" name="cut_one" value="Live camera"> The live camera</label>
-          <label class="opt"><input type="radio" name="cut_one" value="Fan clip broadcast mix"> The stream built from fan videos</label>
-          <label class="opt"><input type="radio" name="cut_one" value="Pay-per-view streaming"> Selling stream tickets</label>
-          <label class="opt"><input type="radio" name="cut_one" value="Nothing, keep it all"> Nothing — keep it all</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <span class="qt">What do you think kills this project?</span>
-        <span class="hint">Tick everything that feels like a real risk.</span>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="Organisers do not adopt it"> Organisers never adopt it</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="Network dies when it matters"> The network dies at the exact moment it matters</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="Fans will not install anything"> Fans will not install anything</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="Stadium or government rules"> Stadium or government rules</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="No money model"> No one pays</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="Half-built features"> Half-built features that fail in public</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="Nobody trusts an app in an emergency"> Nobody trusts an app in an emergency</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="One bad incident in the news"> One bad incident the press blames it for</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="Broadcast rights clash with TV deals"> A TV rights deal blocks the fan stream</label>
-        <label class="opt"><input type="checkbox" name="biggest_risk" value="Streaming data is too expensive here"> Streaming costs too much data for Ugandan fans</label>
-      </div>
-
-      <div class="q">
-        <span class="qt">How likely are you to tell someone about it?</span>
-        <div class="scale nps">
-          <label><input type="radio" name="nps" value="0" required> 0</label>
-          <label><input type="radio" name="nps" value="1" required> 1</label>
-          <label><input type="radio" name="nps" value="2" required> 2</label>
-          <label><input type="radio" name="nps" value="3" required> 3</label>
-          <label><input type="radio" name="nps" value="4" required> 4</label>
-          <label><input type="radio" name="nps" value="5" required> 5</label>
-          <label><input type="radio" name="nps" value="6" required> 6</label>
-          <label><input type="radio" name="nps" value="7" required> 7</label>
-          <label><input type="radio" name="nps" value="8" required> 8</label>
-          <label><input type="radio" name="nps" value="9" required> 9</label>
-          <label><input type="radio" name="nps" value="10" required> 10</label>
-        </div>
-        <div class="ends"><span>Not likely</span><span>Very likely</span></div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Last words</legend>
-
-      <div class="q">
-        <label for="improve">If you could change one thing about how big events keep you safe, what would it be?</label>
-        <textarea id="improve" name="improve" placeholder="One sentence is enough."></textarea>
-      </div>
-
-      <div class="q">
-        <label for="anything">Anything else — praise, doubt, a warning, a story from a match.</label>
-        <textarea id="anything" name="anything"></textarea>
-      </div>
-
-      <div class="q">
-        <span class="qt">May we contact you to show you the results or ask a follow-up question?</span>
-        <div class="row">
-          <label class="opt"><input type="radio" name="follow_up" value="Yes, contact me" required> Yes</label>
-          <label class="opt"><input type="radio" name="follow_up" value="Send results only" required> Results only</label>
-          <label class="opt"><input type="radio" name="follow_up" value="No" required> No</label>
-        </div>
-      </div>
-
-      <div class="q">
-        <label for="contact">Your email or phone <span class="hint">Only if you said yes above. Leave blank to stay anonymous.</span></label>
-        <input type="text" id="contact" name="contact" placeholder="you@example.com or 07xx xxx xxx">
-      </div>
-    </fieldset>
-
-    <button class="send" type="submit" id="send">Send my answers</button>
-    <p class="err" id="err"></p>
-    <p class="note">About three minutes. Nobody gets the whole list: the streaming block is short and the attendee and organiser blocks swap depending on your first answer. Anonymous unless you leave a contact.</p>
-  </form>
-
-  <div id="thanks">
-    <h2>Thank you — this is exactly what we needed.</h2>
-    <p>Your answers are in. If you left a contact, we will send you what we changed because of feedback like yours.</p>
-    <p style="margin-top:18px"><a href="#" id="again" style="color:#22C55E;font-weight:800">Send another response</a></p>
-  </div>
-</div>
-
-<script>
-  // Where responses go. FormSubmit needs no account and no database: every submission
-  // arrives as a formatted email. The very first send asks you to confirm the address.
-  var COLLECTOR_EMAIL = "julietken972@gmail.com";
-
-  var form = document.getElementById("form");
-  var secAttendee = document.getElementById("sec-attendee");
-  var secOrganizer = document.getElementById("sec-organizer");
-  var ptext = document.getElementById("ptext");
-  var pfill = document.getElementById("pfill");
-  var send = document.getElementById("send");
-  var err = document.getElementById("err");
-
-  // A hidden fieldset still validates its required fields, so the browser would block
-  // submit on controls nobody can see. Disable the skipped block as well as hiding it.
-  function setSection(fieldset, show) {
-    fieldset.hidden = !show;
-    var controls = fieldset.querySelectorAll("input, textarea");
-    for (var i = 0; i < controls.length; i++) controls[i].disabled = !show;
-  }
-
-  function picked(name) {
-    var el = form.querySelector("input[name='" + name + "']:checked");
-    return el ? el.value : "";
-  }
-
-  function branch() {
-    var role = picked("role");
-    setSection(secAttendee, role === "Attendee" || role === "Both");
-    setSection(secOrganizer, role === "Organizer" || role === "Both");
-    progress();
-  }
-
-  function groupNames() {
-    var out = [];
-    var nodes = form.querySelectorAll("input[type=radio], input[type=checkbox]");
-    for (var i = 0; i < nodes.length; i++) {
-      var name = nodes[i].name;
-      if (!name || name.charAt(0) === "_" || out.indexOf(name) > -1) continue;
-      out.push(name);
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinkUp AI — tell us what you think (2-minute survey)</title>
+  <meta name="description"
+    content="Feedback survey for LinkUp AI (MEMOZA): watch major Ugandan events live from anywhere through a fan-powered stream, plus crowd safety that works on *384# with no data.">
+  <meta name="theme-color" content="#F4F8F5">
+  <style>
+    :root {
+      --bg0: #F4F8F5;
+      --bg1: #FFFFFF;
+      --bg2: #EDF3EF;
+      --line: #D8E4DB;
+      --green: #16913F;
+      --green-ink: #0F7D38;
+      --green-soft: rgba(22, 145, 63, .10);
+      --gold: #8F5C08;
+      --gold-fill: #F5B942;
+      --text: #22322A;
+      --muted: #63776D;
+      --danger: #C0392F;
+      --shadow: 0 1px 2px rgba(20, 60, 38, .06), 0 8px 24px rgba(20, 60, 38, .05);
     }
-    return out;
-  }
 
-  function progress() {
-    var names = groupNames(), total = 0, done = 0;
-    names.forEach(function (name) {
-      var nodes = form.querySelectorAll("input[name='" + name + "']");
-      if (!nodes.length || nodes[0].disabled) return;
-      total++;
-      for (var i = 0; i < nodes.length; i++) if (nodes[i].checked) { done++; break; }
-    });
-    pfill.style.width = total ? Math.round((done / total) * 100) + "%" : "0";
-    ptext.textContent = done + " of " + total + " answered";
-  }
+    * {
+      box-sizing: border-box;
+    }
 
-  function collect() {
-    var data = {}, lists = {};
-    var nodes = form.querySelectorAll("input, textarea");
-    for (var i = 0; i < nodes.length; i++) {
-      var el = nodes[i];
-      if (!el.name || el.name.charAt(0) === "_" || el.disabled) continue;
-      if (el.type === "radio" || el.type === "checkbox") {
-        if (!el.checked) continue;
-        if (el.type === "checkbox") {
-          if (!lists[el.name]) lists[el.name] = [];
-          lists[el.name].push(el.value);
+    body {
+      margin: 0;
+      background-color: var(--bg0);
+      background-image: radial-gradient(120% 90% at 50% -10%, #E2F0E6 0%, var(--bg0) 60%);
+      color: var(--text);
+      font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 26px 18px 70px;
+    }
+
+    header {
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-soft);
+      color: var(--green-ink);
+      border: 1px solid rgba(22, 145, 63, .26);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 27px;
+      line-height: 1.2;
+      margin: 14px 0 8px;
+      letter-spacing: -.4px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 14.5px;
+      margin: 0 0 10px;
+    }
+
+    /* Explainer blocks */
+    .intro {
+      background: var(--bg1);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      margin: 18px 0 0;
+      box-shadow: var(--shadow);
+    }
+
+    .intro h2 {
+      font-size: 16px;
+      margin: 0 0 8px;
+      color: var(--gold);
+      letter-spacing: .02em;
+    }
+
+    .intro h3 {
+      font-size: 12.5px;
+      margin: 16px 0 6px;
+      color: var(--green-ink);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    .intro p {
+      margin: 0;
+      font-size: 14.5px;
+    }
+
+    .how {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .how li {
+      margin-bottom: 8px;
+      font-size: 14.5px;
+    }
+
+    .how li:last-child {
+      margin-bottom: 0;
+    }
+
+    details {
+      margin-top: 16px;
+      border-top: 1px dashed var(--line);
+      padding-top: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--green-ink);
+      font-weight: 800;
+      font-size: 13.5px;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::before {
+      content: "+ ";
+    }
+
+    details[open] summary::before {
+      content: "−  ";
+    }
+
+    .story {
+      border-left: 3px solid var(--green);
+      padding-left: 14px;
+      margin-top: 12px;
+    }
+
+    .story p {
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+
+    .story p:last-child {
+      margin-bottom: 0;
+    }
+
+    .honest {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    /* Grey microcopy that explains a feature right where it is rated */
+    .tip {
+      display: block;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 12.5px;
+      margin: -6px 0 10px;
+    }
+
+    .progress {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(6px);
+      padding: 10px 18px 8px;
+      margin: 22px -18px 6px;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .bar {
+      height: 5px;
+      background: var(--line);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 7px;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--green), var(--gold-fill));
+      transition: width .3s ease;
+    }
+
+    fieldset {
+      border: 1px solid var(--line);
+      background: var(--bg1);
+      border-radius: 16px;
+      padding: 18px 18px 8px;
+      margin: 18px 0 0;
+      box-shadow: var(--shadow);
+    }
+
+    legend {
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--bg1);
+      padding: 0 8px;
+      margin-left: -4px;
+    }
+
+    .q {
+      padding: 15px 0 11px;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    fieldset .q:last-of-type {
+      border-bottom: 0;
+    }
+
+    .q>label,
+    .qt {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 12.5px;
+      margin: -5px 0 9px;
+      display: block;
+    }
+
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--bg2);
+      border: 1px solid transparent;
+      padding: 10px 12px;
+      border-radius: 11px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .opt:hover {
+      border-color: rgba(22, 145, 63, .45);
+      background: #E4EFE7;
+    }
+
+    .opt:has(input:checked) {
+      border-color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .opt input {
+      accent-color: var(--green);
+      width: 17px;
+      height: 17px;
+      flex: none;
+      margin-top: 2px;
+    }
+
+    .row {
+      display: grid;
+      gap: 7px;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    }
+
+    .row .opt {
+      margin-bottom: 0;
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      background: var(--bg2);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 11px 12px;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    input:focus {
+      outline: 2px solid rgba(22, 145, 63, .4);
+      border-color: var(--green);
+    }
+
+    /* 1-5 and 0-10 scales */
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .scale label {
+      background: var(--bg2);
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 9px 0;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .scale label:has(input:checked) {
+      background: var(--green);
+      color: #06231A;
+    }
+
+    .nps {
+      grid-template-columns: repeat(11, 1fr);
+    }
+
+    .nps label {
+      font-size: 12.5px;
+      padding: 8px 0;
+    }
+
+    .nps label:has(input:checked) {
+      background: var(--gold-fill);
+      color: #2A1A00;
+    }
+
+    .ends {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 11.5px;
+      margin-top: 6px;
+    }
+
+    /* Rate-each-feature grid */
+    .rate {
+      padding: 11px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .rate:last-child {
+      border-bottom: 0;
+    }
+
+    .rate .qt {
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .rate .qt small {
+      display: block;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .send {
+      margin-top: 28px;
+      width: 100%;
+      background: var(--green);
+      color: #04240F;
+      border: 0;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      padding: 16px;
+      border-radius: 13px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .send[disabled] {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .err {
+      color: var(--danger);
+      font-size: 13.5px;
+      margin-top: 10px;
+      display: none;
+      font-weight: 600;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 12.5px;
+      margin-top: 14px;
+    }
+
+    #thanks {
+      display: none;
+      text-align: center;
+      padding: 34px 8px;
+    }
+
+    #thanks h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    #thanks p {
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">LinkUp AI &middot; MEMOZA</span>
+      <h1>Tell us what you really think</h1>
+      <p class="sub">Two minutes, no sign-up, anonymous unless you ask us to reply. Be blunt — "I would never use that"
+        is more useful to us than a polite yes.</p>
+    </header>
+
+    <div class="intro">
+      <h2>What LinkUp AI is</h2>
+      <p>A <strong>fan-powered live stream</strong> for big Ugandan events — Namboole matches, Blankets &amp; Wine,
+        Nyege Nyege. The fans already inside the stadium are the cameras, and anyone anywhere in the world can open one
+        link and watch through their eyes.</p>
+      <h3>How it works</h3>
+      <ol class="how">
+        <li><b>Watch from anywhere.</b> Open one link on your phone, TV or laptop and see the event live, from any
+          country. You get the main view, plus views filmed by fans sitting in different parts of the ground.</li>
+        <li><b>The fans make it.</b> You record about fifteen seconds of your stand and send it. It plays on the big
+          screen at the stadium, and it goes into the stream for people watching from far away. Because it comes from
+          hundreds of phones, it keeps working even when the stadium network falls over.</li>
+        <li><b>The safety part, for people who are there.</b> One tap calls help if someone is hurt. A simple group list
+          keeps the people you came with together. A lost child can be reported by name in seconds. All of it works on
+          <strong>*384#</strong> on any phone, with no internet. Most days you will never touch this part.</li>
+      </ol>
+      <p class="honest">What already exists today: the app, the <strong>*384#</strong> menu, the big screen at the
+        stadium playing videos fans sent in, the organiser's own page where reports arrive, and one link you can open
+        from anywhere to watch those videos. What we have not built yet is a full live stream of the whole match — and
+        whether people would watch it and pay for it is exactly what this survey asks.</p>
+      <details>
+        <summary>See a real day at the match — the long version, if you want it</summary>
+        <div class="story">
+          <p>Grace and her two friends arrive at Namboole. She opens the app, types in the event code
+            <strong>CRANES2024</strong>, and makes a group called "Green Caps" with a PIN and a meeting point at Gate C.
+            That group is just a small list of the people she came with, so one alert reaches all of them at the same
+            time. Her uncle, on a phone with no internet, dials <strong>*384#</strong> and joins the same event and the
+            same group using that PIN. Nobody needed data. Her brother in Nairobi opens one link and watches Grace's
+            part of the stand on his laptop.</p>
+          <p>Late in the second half a man collapses near the terrace. Someone taps <strong>SOS &rarr; Medical</strong>;
+            on a phone without internet it is option 3 on the <strong>*384#</strong> menu. The system reads the report
+            and marks it <em>Medical — high priority</em>, so it jumps to the top of the organiser's page instead of
+            waiting behind everything else. A short line about it also runs along the bottom of the big screen at the
+            stadium, so stewards on the ground can see it. When a steward closes the report on that page, the screen
+            stops showing it and the stadium's safety number updates itself.</p>
+          <p>The fun side: a live poll asks who should be man of the match. Whether you are in the stadium or in another
+            country, you vote and have a real chance of <strong>UGX 5,000 airtime</strong> landing on your line. Grace
+            films fifteen seconds of her stand. It appears on the big screen at the stadium and in the link her brother
+            is watching. At half-time the organiser chooses the best clip so everybody sees it, and a steward points one
+            phone camera at the stand — which goes live on the screen, and to fans watching from other countries.</p>
+          <p>And when a child is separated from his father, the father types his name, how old he is and where he was
+            last seen — in the app, or on <strong>*384#</strong> if his data is finished. Within seconds it is on the
+            organiser's page and on the big screen. The moment security finds him, one tap marks the child found, and
+            the family gets an SMS.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="progress">
+      <div id="ptext">0 of 0 answered</div>
+      <div class="bar"><span id="pfill"></span></div>
+    </div>
+
+    <form id="form" autocomplete="off">
+      <!-- Collector: FormSubmit. Set COLLECTOR_EMAIL at the bottom of this file. -->
+      <input type="hidden" name="_subject" value="New LinkUp AI survey response">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
+
+      <fieldset>
+        <legend>About you</legend>
+
+        <div class="q">
+          <span class="qt">Which best describes you?</span>
+          <span class="hint">This changes the questions you see next.</span>
+          <label class="opt"><input type="radio" name="role" value="Attendee" required> I attend big events — matches,
+            concerts, festivals</label>
+          <label class="opt"><input type="radio" name="role" value="Organizer" required> I organise, steward or run
+            safety at events</label>
+          <label class="opt"><input type="radio" name="role" value="Both" required> Both — I go to events and I work
+            them</label>
+          <label class="opt"><input type="radio" name="role" value="Friend" required> Neither — a friend, judge or just
+            curious</label>
+        </div>
+
+
+        <div class="q">
+          <span class="qt">What do you carry to an event?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="phone" value="Android smartphone" required> Android
+              smartphone</label>
+            <label class="opt"><input type="radio" name="phone" value="iPhone" required> iPhone</label>
+            <label class="opt"><input type="radio" name="phone" value="Basic phone only" required> Basic phone
+              only</label>
+            <label class="opt"><input type="radio" name="phone" value="Both smartphone and basic" required> One of
+              each</label>
+          </div>
+        </div>
+
+
+
+        <div class="q">
+          <span class="qt">What is your data bundle situation at a big event?</span>
+          <span class="hint">This is the single most important reality for our design.</span>
+          <label class="opt"><input type="radio" name="data_reality" value="Always have data" required> I always have
+            data that works</label>
+          <label class="opt"><input type="radio" name="data_reality" value="Runs out mid-event" required> It runs out
+            during the event</label>
+          <label class="opt"><input type="radio" name="data_reality" value="Switch data off to save money" required> I
+            turn data off to save money</label>
+          <label class="opt"><input type="radio" name="data_reality" value="Network too congested to use" required> The
+            network is too jammed to use anyway</label>
+          <label class="opt"><input type="radio" name="data_reality" value="No data at all, basic phone" required> I
+            have no data at all</label>
+        </div>
+
+        <div class="q">
+          <span class="qt">How do you behave about event apps?</span>
+          <label class="opt"><input type="radio" name="app_habit" value="Install for every event" required> I install
+            whatever the event asks</label>
+          <label class="opt"><input type="radio" name="app_habit" value="Only if it clearly pays me" required> Only if
+            it clearly pays me or protects me</label>
+          <label class="opt"><input type="radio" name="app_habit" value="Never install, prefer USSD" required> I never
+            install — give me a code to dial</label>
+          <label class="opt"><input type="radio" name="app_habit" value="Forget it at home" required> I download it and
+            never open it</label>
+        </div>
+
+      </fieldset>
+
+      <fieldset>
+        <legend>Did that description land?</legend>
+
+        <div class="q">
+          <span class="qt">After reading the description above, how clear is it what this does?</span>
+          <div class="scale">
+            <label><input type="radio" name="clarity" value="1" required> 1</label>
+            <label><input type="radio" name="clarity" value="2" required> 2</label>
+            <label><input type="radio" name="clarity" value="3" required> 3</label>
+            <label><input type="radio" name="clarity" value="4" required> 4</label>
+            <label><input type="radio" name="clarity" value="5" required> 5</label>
+          </div>
+          <div class="ends"><span>Still confusing</span><span>Crystal clear</span></div>
+        </div>
+
+        <div class="q">
+          <span class="qt">Which parts still do not make sense?</span>
+          <span class="hint">Tick everything that left you unsure.</span>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="Why it exists"> Why this needs to exist
+            at all</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="How SOS reaches people"> How a tap on
+            SOS actually reaches a steward</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="How *384# works with no internet"> How
+            <b>*384#</b> can work when there is no internet</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="What the stadium screen shows"> What the
+            big screen at the stadium would actually show</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="Who runs the console"> Who uses the
+            organiser's page, and what do they do with it</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="How airtime is paid"> How the airtime
+            actually reaches my phone</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="How the AI decides priority"> How the
+            system decides a report is high priority</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="How a fan clip reaches the stream"> How
+            a fan's phone video ends up in the stream</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="What is built versus planned"> Which
+            parts exist today and which are still an idea</label>
+          <label class="opt"><input type="checkbox" name="unclear_parts" value="Nothing, it was clear"> Nothing — it was
+            clear</label>
+        </div>
+
+        <div class="q">
+          <span class="qt">Which line made you want to keep reading?</span>
+          <span class="hint">This decides the headline on the landing page and in the pitch deck.</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="hook_line" value="Watch from anywhere" required> "Watch from
+              anywhere" — the stream you open on any screen</label>
+            <label class="opt"><input type="radio" name="hook_line" value="The crowd builds the broadcast" required>
+              "The fans make it" — the people inside are the camera crew</label>
+            <label class="opt"><input type="radio" name="hook_line" value="The offline safety net" required> "The safety
+              part" — works on *384# with no internet</label>
+            <label class="opt"><input type="radio" name="hook_line" value="SOS and missing people" required> The safety
+              side — SOS, group PINs, lost children</label>
+            <label class="opt"><input type="radio" name="hook_line" value="None landed" required> None of them
+              landed</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qt">Would you have it on your phone at the next big event?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="install_intent" value="Definitely" required> Definitely</label>
+            <label class="opt"><input type="radio" name="install_intent" value="Probably" required> Probably</label>
+            <label class="opt"><input type="radio" name="install_intent" value="Only if the stadium requires it"
+                required> Only if required</label>
+            <label class="opt"><input type="radio" name="install_intent" value="No" required> No</label>
+            <label class="opt"><input type="radio" name="install_intent" value="Not sure" required> Not sure</label>
+          </div>
+        </div>
+
+
+      </fieldset>
+
+      <fieldset>
+        <legend>Watching from anywhere</legend>
+
+        <div class="q">
+          <span class="qt">Where would you be when a big event is on?</span>
+          <label class="opt"><input type="radio" name="watch_from" value="In the stadium" required> In the stadium, in
+            the crowd</label>
+          <label class="opt"><input type="radio" name="watch_from" value="At home in Uganda" required> At home in
+            Uganda</label>
+          <label class="opt"><input type="radio" name="watch_from" value="Abroad" required> Abroad — I follow Uganda
+            from a distance</label>
+          <label class="opt"><input type="radio" name="watch_from" value="I do not follow live events" required> I do
+            not really follow live events</label>
+        </div>
+
+
+        <div class="q">
+          <span class="qt">What would you actually watch?</span>
+          <label class="opt"><input type="checkbox" name="stream_what" value="Full event live"> The whole match or
+            festival, live</label>
+          <label class="opt"><input type="checkbox" name="stream_what" value="Highlights and key moments"> Goals,
+            highlights and key moments only</label>
+          <label class="opt"><input type="checkbox" name="stream_what" value="Crowd and stand atmosphere"> The crowd and
+            the atmosphere in the stands, filmed by fans</label>
+          <label class="opt"><input type="checkbox" name="stream_what" value="Backstage and set content"> Backstage and
+            set content</label>
+          <label class="opt"><input type="checkbox" name="stream_what" value="Talk around the event"> Pre and post-event
+            talk</label>
+          <label class="opt"><input type="checkbox" name="stream_what" value="Nothing, only in person"> Nothing — I only
+            watch in person</label>
+        </div>
+
+
+        <div class="q">
+          <span class="qt">Would you pay to watch?</span>
+          <label class="opt"><input type="radio" name="stream_pay" value="Only if it is free" required> Only if it is
+            free</label>
+          <label class="opt"><input type="radio" name="stream_pay" value="UGX 2,000 to 5,000 per event" required> UGX
+            2,000-5,000 for one event</label>
+          <label class="opt"><input type="radio" name="stream_pay" value="UGX 10,000 or more" required> UGX 10,000 or
+            more</label>
+          <label class="opt"><input type="radio" name="stream_pay" value="1 to 3 US dollars per match" required> 1-3 USD
+            per match, from abroad</label>
+          <label class="opt"><input type="radio" name="stream_pay" value="A monthly subscription" required> A monthly
+            subscription</label>
+        </div>
+
+        <div class="q">
+          <span class="qt">Rate the two streaming ideas — how much do you want them?</span>
+          <span class="hint">1 = I do not care, 5 = build it this year.</span>
+          <div class="rate">
+            <span class="qt">A live stream room for big events<small>Open one link from any country and watch — the main
+                view, plus views filmed by fans in different stands.</small></span>
+            <div class="scale">
+              <label><input type="radio" name="use_stream" value="1"> 1</label>
+              <label><input type="radio" name="use_stream" value="2"> 2</label>
+              <label><input type="radio" name="use_stream" value="3"> 3</label>
+              <label><input type="radio" name="use_stream" value="4"> 4</label>
+              <label><input type="radio" name="use_stream" value="5"> 5</label>
+            </div>
+          </div>
+          <div class="rate">
+            <span class="qt">A stream built from fan clips<small>Short videos from fans in every stand, played one after
+                another as a single live stream for people watching from far away.</small></span>
+            <div class="scale">
+              <label><input type="radio" name="use_fanmix" value="1"> 1</label>
+              <label><input type="radio" name="use_fanmix" value="2"> 2</label>
+              <label><input type="radio" name="use_fanmix" value="3"> 3</label>
+              <label><input type="radio" name="use_fanmix" value="4"> 4</label>
+              <label><input type="radio" name="use_fanmix" value="5"> 5</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qt">A stream made from fans' phone videos instead of a proper TV camera — honest reaction?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="fan_mix_trust" value="That is the point, raw is better"
+                required> That is the point — I want the real feel</label>
+            <label class="opt"><input type="radio" name="fan_mix_trust" value="Fine, if it stays watchable" required>
+              Fine, as long as it stays easy to watch</label>
+            <label class="opt"><input type="radio" name="fan_mix_trust" value="I would rather have the official feed"
+                required> I would rather have the TV camera</label>
+            <label class="opt"><input type="radio" name="fan_mix_trust" value="Not interested either way" required> Not
+              interested either way</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qt">What would stop you from watching a stream like this?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="stream_blocker" value="Data cost" required> My data
+              cost</label>
+            <label class="opt"><input type="radio" name="stream_blocker" value="Not the full match" required> It is not
+              the full match</label>
+            <label class="opt"><input type="radio" name="stream_blocker" value="Poor video quality" required> Poor video
+              quality</label>
+            <label class="opt"><input type="radio" name="stream_blocker" value="No commentary in my language" required>
+              No commentary in my language</label>
+            <label class="opt"><input type="radio" name="stream_blocker" value="I watch with people on TV" required> I
+              watch with people, on TV</label>
+            <label class="opt"><input type="radio" name="stream_blocker" value="Nothing, I would watch" required>
+              Nothing — I would watch</label>
+          </div>
+        </div>
+
+      </fieldset>
+
+      <fieldset id="sec-attendee" hidden>
+        <legend>Your experience as an attendee</legend>
+
+        <div class="q">
+          <span class="qt">At a big event, which of these has happened to you?</span>
+          <label class="opt"><input type="checkbox" name="incident" value="Lost a friend in the crowd"> Separated from
+            my people and could not reconnect</label>
+          <label class="opt"><input type="checkbox" name="incident" value="Lost a child"> Lost track of a child</label>
+          <label class="opt"><input type="checkbox" name="incident" value="Medical emergency nearby"> A medical
+            emergency right next to me</label>
+          <label class="opt"><input type="checkbox" name="incident" value="Dangerous crowd crush"> A crush or stampede
+            scare</label>
+          <label class="opt"><input type="checkbox" name="incident" value="Network or data failed"> My phone or the
+            network completely failed</label>
+          <label class="opt"><input type="checkbox" name="incident" value="Violence or theft"> Fighting, theft or
+            harassment</label>
+          <label class="opt"><input type="checkbox" name="incident" value="Nothing yet"> None of these</label>
+        </div>
+
+        <div class="q">
+          <span class="qt">Which of these would you really use?</span>
+          <span class="hint">Tick up to three — the honest answer is more useful than the polite one.</span>
+          <label class="opt"><input type="checkbox" name="would_use" value="SOS panic alert" data-group-max="3"> One-tap
+            SOS to organisers and on-duty security</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="Safety group" data-group-max="3"> A group
+            list so I know the people I came with are safe</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="Missing person board" data-group-max="3">
+            Reporting a lost child or lost friend by name and where they were last seen</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="USSD *384#" data-group-max="3"> Doing all of
+            it on *384# with no data</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="Fan polls with airtime" data-group-max="3">
+            Live polls that pay airtime</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="Shout-outs on the big screen"
+              data-group-max="3"> Putting my message or my video on the big screen at the stadium</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="Meeting point finder" data-group-max="3">
+            Finding the nearest safe meeting point</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="Clip upload and memory mix"
+              data-group-max="3"> Sending a video of my stand, and getting the day back as one edited video</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="Watching the stream remotely"
+              data-group-max="3"> Watching the match live on my phone when I am not at the ground</label>
+          <label class="opt"><input type="checkbox" name="would_use" value="Being in the fan broadcast"
+              data-group-max="3"> My clip going into the stream the whole country is watching</label>
+        </div>
+
+
+        <div class="q">
+          <span class="qt">Would you genuinely dial *384# for safety instead of an app?</span>
+          <span class="tip">Example: a torchlight phone dials *384# and joins the same group as everyone else's
+            smartphones — same alert, same meeting point, no data needed.</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="ussd_appetite" value="Yes, definitely" required> Yes,
+              definitely</label>
+            <label class="opt"><input type="radio" name="ussd_appetite" value="Probably" required> Probably</label>
+            <label class="opt"><input type="radio" name="ussd_appetite" value="Not sure" required> Not sure</label>
+            <label class="opt"><input type="radio" name="ussd_appetite" value="No" required> No</label>
+          </div>
+        </div>
+
+
+        <div class="q">
+          <span class="qt">Would you report an emergency through the app instead of to a person?</span>
+          <span class="tip">Example: you report a lost child with a name and where he was last seen. Everyone in your
+            group is told the moment you send it.</span>
+          <div class="scale">
+            <label><input type="radio" name="trust" value="1" required> 1</label>
+            <label><input type="radio" name="trust" value="2" required> 2</label>
+            <label><input type="radio" name="trust" value="3" required> 3</label>
+            <label><input type="radio" name="trust" value="4" required> 4</label>
+            <label><input type="radio" name="trust" value="5" required> 5</label>
+          </div>
+          <div class="ends"><span>Never</span><span>Always</span></div>
+        </div>
+
+        <div class="q">
+          <span class="qt">What would you worry about?</span>
+          <label class="opt"><input type="checkbox" name="worries" value="Location tracking"> My location being
+            tracked</label>
+          <label class="opt"><input type="checkbox" name="worries" value="Phone number stored"> My number being stored
+            and sold</label>
+          <label class="opt"><input type="checkbox" name="worries" value="People seeing my SOS"> The crowd or screen
+            knowing I raised an alert</label>
+          <label class="opt"><input type="checkbox" name="worries" value="Spam SMS"> Getting flooded with SMS
+            after</label>
+          <label class="opt"><input type="checkbox" name="worries" value="Battery"> Battery dying because the app
+            runs</label>
+          <label class="opt"><input type="checkbox" name="worries" value="Data cost"> It eating my bundle</label>
+          <label class="opt"><input type="checkbox" name="worries" value="False alarms"> Someone abusing it as a
+            prank</label>
+          <label class="opt"><input type="checkbox" name="worries" value="Nothing"> None of these worry me</label>
+        </div>
+
+        <div class="q">
+          <span class="qt">Which language would you use it in?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="language" value="English"> English</label>
+            <label class="opt"><input type="radio" name="language" value="Luganda"> Luganda</label>
+            <label class="opt"><input type="radio" name="language" value="Both English and Luganda"> Both</label>
+            <label class="opt"><input type="radio" name="language" value="Swahili"> Swahili</label>
+            <label class="opt"><input type="radio" name="language" value="Runyankole or Rukiga">
+              Runyankole/Rukiga</label>
+            <label class="opt"><input type="radio" name="language" value="Another language"> Another — say below</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qt">Does airtime for voting bring you back, or is it noise?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="airtime_pull" value="Big reason to use it" required> A big
+              reason to use it</label>
+            <label class="opt"><input type="radio" name="airtime_pull" value="Nice bonus" required> A nice bonus</label>
+            <label class="opt"><input type="radio" name="airtime_pull" value="Does not interest me" required> Does not
+              interest me</label>
+            <label class="opt"><input type="radio" name="airtime_pull" value="Feels like a gimmick" required> Feels like
+              a gimmick</label>
+          </div>
+        </div>
+
+
+
+
+
+      </fieldset>
+
+      <fieldset id="sec-organizer" hidden>
+        <legend>Your work as an organiser or steward</legend>
+
+        <div class="q">
+          <span class="qt">How do incident reports reach you today?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="reports_today" value="Radio" required> Radio</label>
+            <label class="opt"><input type="radio" name="reports_today" value="WhatsApp group" required>
+              WhatsApp</label>
+            <label class="opt"><input type="radio" name="reports_today" value="Phone calls" required> Phone
+              calls</label>
+            <label class="opt"><input type="radio" name="reports_today" value="Runners and walking stewards" required>
+              Runners</label>
+            <label class="opt"><input type="radio" name="reports_today" value="Nothing formal" required> Nothing
+              formal</label>
+          </div>
+        </div>
+
+
+        <div class="q">
+          <span class="qt">Which part of the organiser's page would help you the most during an event?</span>
+          <span class="tip">The organiser's page is one website open on a laptop at the stadium. Every SOS and
+            lost-person report lands there, so the team sees which one to send help to first. The organiser also creates
+            the event and its join code there, chooses which fan videos play on the big screen, and can put a steward's
+            phone camera onto that screen. What comes next: switching between several live cameras, and selling tickets
+            to the stream.</span>
+          <label class="opt"><input type="checkbox" name="console_need" value="Prioritised alerts"> Reports sorted by
+            how serious they are (medical / security / fire / crush)</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Missing person board"> One lost-person
+            list the whole team can see and update</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Live camera to screen"> Putting a
+            steward's phone camera on the big screen</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Event and join-code setup"> Setting up an
+            event quickly and getting its join code</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Crowd clip wall"> Picking which fan
+            videos play on the big screen</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Live poll results"> Live poll results and
+            how the crowd is feeling</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Health score"> One safety number for the
+            whole event, going up or down as reports come in</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Group headcount"> Which groups have
+            checked in, and which are still missing people</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Multi-angle broadcast console"> Choosing
+            which camera the stream shows, like a TV director</label>
+          <label class="opt"><input type="checkbox" name="console_need" value="Stream ticketing"> Selling tickets to the
+            stream and seeing who bought</label>
+        </div>
+
+        <div class="q">
+          <span class="qt">Would you let the system decide how serious a report is?</span>
+          <span class="tip">Example: someone reports a crowd crush. The system marks it medical and high priority
+            straight away, so the team sends help to the worst report first instead of the oldest one.</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="triage_trust" value="Yes, with human override" required> Yes,
+              if a human can override it</label>
+            <label class="opt"><input type="radio" name="triage_trust" value="Only for low-priority sorting" required>
+              Only for sorting the small stuff</label>
+            <label class="opt"><input type="radio" name="triage_trust" value="No, staff must decide" required> No —
+              staff must decide</label>
+            <label class="opt"><input type="radio" name="triage_trust" value="Only if it is logged" required> Only if
+              every decision is logged</label>
+          </div>
+        </div>
+
+
+
+
+        <div class="q">
+          <span class="qt">Would an organiser pay for this per event?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="willing_to_pay" value="Free only" required> Only if
+              free</label>
+            <label class="opt"><input type="radio" name="willing_to_pay" value="UGX 100,000 or less" required> Up to UGX
+              100k</label>
+            <label class="opt"><input type="radio" name="willing_to_pay" value="UGX 100,000 to 500,000" required> UGX
+              100k-500k</label>
+            <label class="opt"><input type="radio" name="willing_to_pay" value="More for a stadium" required> More, for
+              a stadium</label>
+            <label class="opt"><input type="radio" name="willing_to_pay" value="A sponsor should pay it" required> A
+              sponsor should pay</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qt">Who should actually pay?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="payer" value="The organiser"> The organiser</label>
+            <label class="opt"><input type="radio" name="payer" value="The venue or stadium"> The venue</label>
+            <label class="opt"><input type="radio" name="payer" value="A sponsor"> A sponsor</label>
+            <label class="opt"><input type="radio" name="payer" value="A telco"> A telco</label>
+            <label class="opt"><input type="radio" name="payer" value="Federation or government"> Federation or
+              government</label>
+            <label class="opt"><input type="radio" name="payer" value="Included in the ticket"> Baked into the
+              ticket</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qt">Streaming changes who owns the footage. Whose is it today?</span>
+          <span class="tip">If a TV broadcaster already holds the rights to your event, a fan stream can collide with
+            that deal. This decides whether streaming is even sellable to you.</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="stream_rights" value="A TV broadcaster owns them" required> A
+              TV broadcaster owns them</label>
+            <label class="opt"><input type="radio" name="stream_rights" value="We the organisers keep them" required> We
+              keep them ourselves</label>
+            <label class="opt"><input type="radio" name="stream_rights" value="The venue or federation" required> The
+              venue or federation</label>
+            <label class="opt"><input type="radio" name="stream_rights" value="Nobody has settled it" required> Nobody
+              has settled it</label>
+            <label class="opt"><input type="radio" name="stream_rights" value="Not my area" required> Not my
+              area</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="qt">Would you sell tickets to watch the stream rather than the seats?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="ppv_interest" value="Yes, extra revenue" required> Yes — money
+              the stadium cannot hold</label>
+            <label class="opt"><input type="radio" name="ppv_interest" value="Yes, if fans get most of it" required>
+              Yes, if the fans in the crowd get most of the value</label>
+            <label class="opt"><input type="radio" name="ppv_interest" value="Only if it does not empty seats" required>
+              Only if it does not hurt ticket sales</label>
+            <label class="opt"><input type="radio" name="ppv_interest" value="No, it is the broadcaster business"
+                required> No — that is the broadcaster's business</label>
+            <label class="opt"><input type="radio" name="ppv_interest" value="Need to see a number first" required> I
+              need to see what it earns first</label>
+          </div>
+        </div>
+
+
+      </fieldset>
+
+
+
+      <fieldset>
+        <legend>What we should do next</legend>
+
+        <div class="q">
+          <span class="qt">What should we build or fix first?</span>
+          <label class="opt"><input type="radio" name="first_priority" value="The global live stream" required> The live
+            stream — watch from anywhere</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Reliable fan-clip stitching" required>
+            Making the fan-video stream dependable and easy to watch</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Stream ticketing and payment" required>
+            Stream tickets, payment and who gets the money</label>
+          <label class="opt"><input type="radio" name="first_priority" value="USSD reliability on 2G" required> Making
+            *384# rock solid when the network is dying</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Faster SOS and dispatch" required> Faster
+            SOS, with real response times</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Missing person workflow" required> The
+            lost-child process, and joining a found person back to their family</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Live camera and wall" required> The live
+            camera and the big screen at the stadium</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Real airtime rewards" required> Real
+            airtime rewards for voting</label>
+          <label class="opt"><input type="radio" name="first_priority" value="App polish" required> A smoother, prettier
+            app</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Offline mode" required> Working when the
+            network dies completely</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Organiser pricing and pitch" required> A
+            clear price and pitch for organisers</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Local languages" required> Luganda,
+            Swahili and Runyankole support</label>
+          <label class="opt"><input type="radio" name="first_priority" value="Steward app" required> A separate view for
+            stewards on the ground</label>
+        </div>
+
+
+        <div class="q">
+          <span class="qt">What do you think kills this project?</span>
+          <span class="hint">Tick everything that feels like a real risk.</span>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="Organisers do not adopt it"> Organisers
+            never adopt it</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="Network dies when it matters"> The
+            network dies at the exact moment it matters</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="Fans will not install anything"> Fans
+            will not install anything</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="Stadium or government rules"> Stadium or
+            government rules</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="No money model"> No one pays</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="Half-built features"> Half-built features
+            that fail in public</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="Nobody trusts an app in an emergency">
+            Nobody trusts an app in an emergency</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="One bad incident in the news"> One bad
+            incident the press blames it for</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="Broadcast rights clash with TV deals"> A
+            TV rights deal blocks the fan stream</label>
+          <label class="opt"><input type="checkbox" name="biggest_risk" value="Streaming data is too expensive here">
+            Streaming costs too much data for Ugandan fans</label>
+        </div>
+
+        <div class="q">
+          <span class="qt">How likely are you to tell someone about it?</span>
+          <div class="scale nps">
+            <label><input type="radio" name="nps" value="0" required> 0</label>
+            <label><input type="radio" name="nps" value="1" required> 1</label>
+            <label><input type="radio" name="nps" value="2" required> 2</label>
+            <label><input type="radio" name="nps" value="3" required> 3</label>
+            <label><input type="radio" name="nps" value="4" required> 4</label>
+            <label><input type="radio" name="nps" value="5" required> 5</label>
+            <label><input type="radio" name="nps" value="6" required> 6</label>
+            <label><input type="radio" name="nps" value="7" required> 7</label>
+            <label><input type="radio" name="nps" value="8" required> 8</label>
+            <label><input type="radio" name="nps" value="9" required> 9</label>
+            <label><input type="radio" name="nps" value="10" required> 10</label>
+          </div>
+          <div class="ends"><span>Not likely</span><span>Very likely</span></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Last words</legend>
+
+
+        <div class="q">
+          <label for="anything">Anything else — praise, doubt, a warning, a story from a match.</label>
+          <textarea id="anything" name="anything"></textarea>
+        </div>
+
+        <div class="q">
+          <span class="qt">May we contact you to show you the results or ask a follow-up question?</span>
+          <div class="row">
+            <label class="opt"><input type="radio" name="follow_up" value="Yes, contact me" required> Yes</label>
+            <label class="opt"><input type="radio" name="follow_up" value="Send results only" required> Results
+              only</label>
+            <label class="opt"><input type="radio" name="follow_up" value="No" required> No</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <label for="contact">Your email or phone <span class="hint">Only if you said yes above. Leave blank to stay
+              anonymous.</span></label>
+          <input type="text" id="contact" name="contact" placeholder="you@example.com or 07xx xxx xxx">
+        </div>
+      </fieldset>
+
+      <button class="send" type="submit" id="send">Send my answers</button>
+      <p class="err" id="err"></p>
+      <p class="note">Nobody answers the whole list. A fan gets 28 questions, an organiser gets 28, and 35 only if you
+        go to events and work them — the two blocks swap depending on your first answer. Anonymous unless you leave a
+        contact at the end.</p>
+    </form>
+
+    <div id="thanks">
+      <h2>Thank you — this is exactly what we needed.</h2>
+      <p>Your answers are in. If you left a contact, we will send you what we changed because of feedback like yours.
+      </p>
+      <p style="margin-top:18px"><a href="#" id="again" style="color:var(--green-ink);font-weight:800">Send another
+          response</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Where responses go. FormSubmit needs no account and no database: every submission
+    // arrives as a formatted email. The very first send asks you to confirm the address.
+    var COLLECTOR_EMAIL = "julietken972@gmail.com";
+
+    var form = document.getElementById("form");
+    var secAttendee = document.getElementById("sec-attendee");
+    var secOrganizer = document.getElementById("sec-organizer");
+    var ptext = document.getElementById("ptext");
+    var pfill = document.getElementById("pfill");
+    var send = document.getElementById("send");
+    var err = document.getElementById("err");
+
+    // A hidden fieldset still validates its required fields, so the browser would block
+    // submit on controls nobody can see. Disable the skipped block as well as hiding it.
+    function setSection(fieldset, show) {
+      fieldset.hidden = !show;
+      var controls = fieldset.querySelectorAll("input, textarea");
+      for (var i = 0; i < controls.length; i++) controls[i].disabled = !show;
+    }
+
+    function picked(name) {
+      var el = form.querySelector("input[name='" + name + "']:checked");
+      return el ? el.value : "";
+    }
+
+    function branch() {
+      var role = picked("role");
+      setSection(secAttendee, role === "Attendee" || role === "Both");
+      setSection(secOrganizer, role === "Organizer" || role === "Both");
+      progress();
+    }
+
+    function groupNames() {
+      var out = [];
+      var nodes = form.querySelectorAll("input[type=radio], input[type=checkbox]");
+      for (var i = 0; i < nodes.length; i++) {
+        var name = nodes[i].name;
+        if (!name || name.charAt(0) === "_" || out.indexOf(name) > -1) continue;
+        out.push(name);
+      }
+      return out;
+    }
+
+    function progress() {
+      var names = groupNames(), total = 0, done = 0;
+      names.forEach(function (name) {
+        var nodes = form.querySelectorAll("input[name='" + name + "']");
+        if (!nodes.length || nodes[0].disabled) return;
+        total++;
+        for (var i = 0; i < nodes.length; i++) if (nodes[i].checked) { done++; break; }
+      });
+      pfill.style.width = total ? Math.round((done / total) * 100) + "%" : "0";
+      ptext.textContent = done + " of " + total + " answered";
+    }
+
+    function collect() {
+      var data = {}, lists = {};
+      var nodes = form.querySelectorAll("input, textarea");
+      for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        if (!el.name || el.name.charAt(0) === "_" || el.disabled) continue;
+        if (el.type === "radio" || el.type === "checkbox") {
+          if (!el.checked) continue;
+          if (el.type === "checkbox") {
+            if (!lists[el.name]) lists[el.name] = [];
+            lists[el.name].push(el.value);
+            continue;
+          }
+        } else if (!String(el.value).trim()) {
           continue;
         }
-      } else if (!String(el.value).trim()) {
-        continue;
+        data[el.name] = String(el.value).trim();
       }
-      data[el.name] = String(el.value).trim();
-    }
-    Object.keys(lists).forEach(function (k) { data[k] = lists[k].join("; "); });
-    // FormSubmit runs reCAPTCHA by default and an AJAX post cannot pass it.
-    data._captcha = "false";
-    data._template = "table";
-    data._subject = "LinkUp AI survey — " + (data.role || "response") +
-                    (data.city ? " (" + data.city + ")" : "");
-    return data;
-  }
-
-  function show(message) {
-    err.textContent = message;
-    err.style.display = "block";
-  }
-
-  // Keep "pick up to three" honest: cap the group instead of hoping people count.
-  function capCheckbox(el) {
-    var group = form.querySelectorAll("input[name='" + el.name + "']");
-    var checked = [];
-    for (var i = 0; i < group.length; i++) if (group[i].checked) checked.push(group[i]);
-    if (checked.length <= Number(el.dataset.groupMax)) return;
-    el.checked = false;
-    show("Pick " + el.dataset.groupMax + " at most — the honest three tell us more than a list of everything.");
-  }
-
-  // Both listeners re-branch: a real tap fires input then change, but anything that fires
-  // only one of them must still swap the attendee/organiser blocks.
-  form.addEventListener("change", function (event) {
-    var el = event.target;
-    if (el.type === "checkbox" && el.dataset.groupMax) capCheckbox(el);
-    branch();
-  });
-
-  form.addEventListener("input", branch);
-
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    err.style.display = "none";
-
-    if (COLLECTOR_EMAIL.indexOf("@") < 1 || COLLECTOR_EMAIL.indexOf("example.com") > -1) {
-      show("Collector address is not set yet. Open survey/index.html and put your email in COLLECTOR_EMAIL.");
-      return;
+      Object.keys(lists).forEach(function (k) { data[k] = lists[k].join("; "); });
+      // FormSubmit runs reCAPTCHA by default and an AJAX post cannot pass it.
+      data._captcha = "false";
+      data._template = "table";
+      data._subject = "LinkUp AI survey — " + (data.role || "response");
+      return data;
     }
 
-    send.disabled = true;
-    send.textContent = "Sending...";
+    function show(message) {
+      err.textContent = message;
+      err.style.display = "block";
+    }
 
-    fetch("https://formsubmit.co/ajax/" + COLLECTOR_EMAIL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(collect())
-    }).then(function (r) {
-      if (!r.ok) throw new Error("server said " + r.status);
-      return r.json();
-    }).then(function () {
-      form.style.display = "none";
-      document.querySelector(".progress").style.display = "none";
-      document.getElementById("thanks").style.display = "block";
-      window.scrollTo(0, 0);
-    }).catch(function (e) {
-      send.disabled = false;
-      send.textContent = "Send my answers";
-      show("Could not send just now (" + e.message + "). Check your connection and try again.");
+    // Keep "pick up to three" honest: cap the group instead of hoping people count.
+    function capCheckbox(el) {
+      var group = form.querySelectorAll("input[name='" + el.name + "']");
+      var checked = [];
+      for (var i = 0; i < group.length; i++) if (group[i].checked) checked.push(group[i]);
+      if (checked.length <= Number(el.dataset.groupMax)) return;
+      el.checked = false;
+      show("Pick " + el.dataset.groupMax + " at most — the honest three tell us more than a list of everything.");
+    }
+
+    // Both listeners re-branch: a real tap fires input then change, but anything that fires
+    // only one of them must still swap the attendee/organiser blocks.
+    form.addEventListener("change", function (event) {
+      var el = event.target;
+      if (el.type === "checkbox" && el.dataset.groupMax) capCheckbox(el);
+      branch();
     });
-  });
 
-  document.getElementById("again").addEventListener("click", function (e) {
-    e.preventDefault();
-    window.scrollTo(0, 0);
-    window.location.reload();
-  });
+    form.addEventListener("input", branch);
 
-  branch();
-</script>
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      err.style.display = "none";
+
+      if (COLLECTOR_EMAIL.indexOf("@") < 1 || COLLECTOR_EMAIL.indexOf("example.com") > -1) {
+        show("Collector address is not set yet. Open survey/index.html and put your email in COLLECTOR_EMAIL.");
+        return;
+      }
+
+      send.disabled = true;
+      send.textContent = "Sending...";
+
+      fetch("https://formsubmit.co/ajax/" + COLLECTOR_EMAIL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(collect())
+      }).then(function (r) {
+        if (!r.ok) throw new Error("server said " + r.status);
+        return r.json();
+      }).then(function () {
+        form.style.display = "none";
+        document.querySelector(".progress").style.display = "none";
+        document.getElementById("thanks").style.display = "block";
+        window.scrollTo(0, 0);
+      }).catch(function (e) {
+        send.disabled = false;
+        send.textContent = "Send my answers";
+        show("Could not send just now (" + e.message + "). Check your connection and try again.");
+      });
+    });
+
+    document.getElementById("again").addEventListener("click", function (e) {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+      window.location.reload();
+    });
+
+    branch();
+  </script>
 </body>
+
 </html>
